@@ -1,1 +1,1 @@
-export const api_url = "http://13.48.104.202"
+export const api_url = "https://intellisenseai-backend.onrender.com"
