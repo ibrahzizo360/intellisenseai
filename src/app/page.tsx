@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import MovieClip from './Clip';
 import Transcript from './Transcript';
 import ChatArea from '@/components/ChatArea';
+import { api_url } from '@/utils';
 
 export default function Home() {
   const [currentTime, setCurrentTime] = useState(0);
@@ -46,7 +47,7 @@ export default function Home() {
     }
     
     try {
-      const response = await fetch(`http://localhost:8000/transcript?videoId=${id}`);
+      const response = await fetch(`${api_url}/transcript?videoId=${id}`);
       if (!response.ok) {
         throw new Error('Failed to fetch transcript data');
       }
@@ -86,7 +87,7 @@ export default function Home() {
 
       {transcript.length > 0 && (
         <>
-        <div className='flex gap-7'>
+        <div className='flex gap-7 lg:flex-row flex-col'>
           <div className='rounded-md'>
             <MovieClip
               video_id={videoId}
