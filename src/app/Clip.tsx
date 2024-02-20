@@ -20,7 +20,7 @@ class MovieClip extends React.Component<MovieClipProps> {
   render() {
     const { video_id } = this.props;
     const options: Options = {
-      height: '390',
+      height: '340',
       width: '640',
       playerVars: {
         autoplay: 1,
@@ -35,6 +35,7 @@ class MovieClip extends React.Component<MovieClipProps> {
         onReady={this._onReady}
         onStateChange={this._onStateChange}
         id="video"
+        className="rounded-md"
       />
     );
   }
@@ -50,7 +51,7 @@ class MovieClip extends React.Component<MovieClipProps> {
       // Start listening to time updates when the video starts playing
       const intervalId = setInterval(() => {
         this.props.onTimeUpdate(event);
-      }, 1000); // Call onTimeUpdate every 1 second
+      }, 100); // Call onTimeUpdate every 1 second
 
       // Store the interval ID so we can clear it later
       this.intervalId = intervalId;

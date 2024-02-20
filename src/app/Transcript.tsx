@@ -17,11 +17,19 @@ const Transcript: React.FC<TranscriptProps> = ({ transcript, currentTime }) => {
   }, [transcript, currentTime]);
 
   return (
-    <div className="w-[800px] mt-20">
+    <div className="w-[640px] mt-5 p-3 h-72 overflow-scroll bg-gray-50 border border-gray-300 rounded-lg tracking-wider leading-10">
       {transcript.map((item, index) => (
-        <span key={index} className={index === activeIndex ? 'bg-blue-200' : ''}>
-          {item.text}
-        </span>
+        <span
+        key={index}
+        className={`py-2 text-sm mr-1 ${
+          index === activeIndex
+            ? 'bg-blue-200 rounded-md animate-slideIn'
+            : ''
+        }`}
+      >
+        {item.text}
+      </span>
+      
       ))}
     </div>
   );
