@@ -14,6 +14,7 @@ export default function Home() {
   const [videoLink, setVideoLink] = useState('');
   const [showForm, setShowForm] = useState(true);
   const [loading, setLoading] = useState(false);
+  
 
   const getVideoId = (url: string) => {
     const videoIdMatch = url.match(/[?&]v=([^&#]*)/);
@@ -48,13 +49,13 @@ export default function Home() {
     }
 
     try {
-      const response = await fetch(`${api_url}/transcript?videoId=${id}`);
+      const response = await fetch(`${api_url}/transcript?video_url=${videoLink}`);
       if (!response.ok) {
         setLoading(false);
         throw new Error('Failed to fetch transcript data');
       }
       const data = await response.json();
-      setTranscript(data.transcript);
+      setTranscript(data.response.words);
       setVideoId(id);
       setShowForm(false); // Hide the form after fetching transcript data
       setLoading(false);
@@ -65,20 +66,31 @@ export default function Home() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center w-full h-full p-10">
+    <div>
+    <p className='mobile text-center uppercase lg:hidden font-bold text-md mt-[50%]'>please open on a bigger screen</p>
+    <main className="flex-1 flex-col items-center justify-center w-screen h-full p-10">
       {showForm && (
         <form className="flex flex-col items-center" onSubmit={generateTranscript}>
-          <h1 className="text-4xl font-bold mb-4">Learning Assistant</h1>
-          <p className="text-lg mb-2">Welcome to Learning Assistant</p>
-          <label htmlFor="search" className="text-lg mb-2">
-            Enter video URL:
+          <h1 className="text-4xl font-bold mb-4">Welcome to Intellisense AI</h1>
+          <p className="text-lg mb-2">Discover a smarter way to learn with Intellisense AI</p>
+          <h2 className="text-2xl font-bold my-3">What We Offer</h2>
+            <ul className="space-y-2 pl-5">
+              <li>
+                <strong>Video Interaction:</strong> Interact with videos using AI to generate summaries and quizzes.
+              </li>
+              <li>
+                <strong>Upload Learning Materials:</strong> Easily upload learning materials such as PDFs to interact with and generate quizzes.
+              </li>
+            </ul>
+          <label htmlFor="search" className="text-lg my-3 mt-8">
+            Enter video URL to get started:
           </label>
           <input
             type="text"
             id="search"
             value={videoLink}
             onChange={onInputChanged}
-            className="border border-gray-300 rounded-md px-4 py-2 w-80 focus:outline-none focus:border-blue-500"
+            className="border border-gray-300 rounded-md px-4 py-2 w-96 focus:outline-none focus:border-blue-500"
             placeholder="https://www.youtube.com/watch?v=SSjdRXwqg_U"
           />
           <button
@@ -93,7 +105,7 @@ export default function Home() {
       {loading && <Loader />}
 
       {transcript.length > 0 && (
-        <div className="flex gap-7 lg:flex-row flex-col">
+        <div className="flex gap-7 lg:flex-row flex-col ">
           <div className="rounded-md">
             <MovieClip
               video_id={videoId}
@@ -101,11 +113,12 @@ export default function Home() {
               onSeekTo={handleSeekTo}
               setPlayer={setPlayer}
             />
-            <Transcript transcript={transcript} currentTime={currentTime} />
+            <Transcript transcript={transcript} currentTime={currentTime} player={player}/>
           </div>
           <ChatArea />
         </div>
       )}
     </main>
+    </div>
   );
 }

@@ -1,4 +1,5 @@
-import React from "react";
+
+import React, { useRef, useEffect, useState } from "react";
 import YouTube from "react-youtube";
 import { Options } from "youtube-player/dist/types";
 
@@ -9,62 +10,60 @@ interface MovieClipProps {
   setPlayer: React.Dispatch<React.SetStateAction<any>>; // Setter function for the player reference
 }
 
-class MovieClip extends React.Component<MovieClipProps> {
-  private intervalId: NodeJS.Timeout | null = null;
-  constructor(props: MovieClipProps) {
-    super(props);
-    this._onReady = this._onReady.bind(this);
-    this._onStateChange = this._onStateChange.bind(this);
-  }
+const MovieClip: React.FC<MovieClipProps> = ({
+  video_id,
+  onTimeUpdate,
+  onSeekTo,
+  setPlayer,
+}) => {
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  render() {
-    const { video_id } = this.props;
-    const options: Options = {
-      height: '340',
-      width: '640',
-      playerVars: {
-        autoplay: 1,
-        controls: 1,
-      },
-    };
 
-    return (
-      <YouTube
-        videoId={video_id}
-        opts={options}
-        onReady={this._onReady}
-        onStateChange={this._onStateChange}
-        id="video"
-        className="rounded-md"
-      />
-    );
-  }
+  const options: Options = {
+    height: '340',
+    width: '640',
+    playerVars: {
+      autoplay: 1,
+      controls: 1,
+    },
+  };
 
-  _onReady(event: { target: any }) {
+  const handleReady = (event: { target: any }) => {
     // Set the player reference when the player is ready
-    this.props.setPlayer(event.target);
+    setPlayer(event.target);
+    console.log("Player is ready");
     event.target.pauseVideo();
-  }
+  };
 
-  _onStateChange(event: { target: any, data: number }) {
+  const handleStateChange = (event: { target: any, data: number }) => {
     if (event.data === 1) {
       // Start listening to time updates when the video starts playing
       const intervalId = setInterval(() => {
-        this.props.onTimeUpdate(event);
-      }, 100); // Call onTimeUpdate every 1 second
+        onTimeUpdate(event);
+      }, 1); // Call onTimeUpdate every 1 second
 
       // Store the interval ID so we can clear it later
-      this.intervalId = intervalId;
+      intervalRef.current = intervalId;
     } else {
       console.log("Video is not playing");
       // Stop the interval when the video stops playing
-      if (this.intervalId !== null) {
-        clearInterval(this.intervalId);
-        this.intervalId = null; // Reset intervalId
+      if (intervalRef.current !== null) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null; // Reset intervalId
       }
     }
-  }
-  
-}
+  };
+
+  return (
+    <YouTube
+      videoId={video_id}
+      opts={options}
+      onReady={handleReady}
+      onStateChange={handleStateChange}
+      id="video"
+      className="rounded-md"
+    />
+  );
+};
 
 export default MovieClip;

@@ -13,3 +13,12 @@
         scrollbar-width: none;  /* Firefox */
   }
 }
+
+@media screen and (max-width: 640px){
+    main:not(.mobile){
+        display: none;
+    }
+    .mobile {
+        display: block;
+    }
+}

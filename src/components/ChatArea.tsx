@@ -2,7 +2,7 @@ import React from 'react'
 
 const ChatArea = () => {
   return (
-    <div className='max-h-[93vh] bg-gray-800 w-full rounded-md'>
+    <div className='lg:max-h-[93vh] bg-gray-800 w-full rounded-md '>
         <div className='h-[80%] overflow-scroll no-scrollbar'></div>
         <hr className='my-1'/>
         <div className='h-[20%] p-3'>
