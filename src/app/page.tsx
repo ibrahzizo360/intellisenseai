@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 import MovieClip from './Clip';
 import Transcript from './Transcript';
 import ChatArea from '@/components/ChatArea';
-import { api_url } from '@/utils';
+import { api_url, test_transcript } from '@/utils';
 import Loader from '@/components/loaders/Loader';
+import { NotificationManager } from 'react-notifications';
 
 export default function Home() {
   const [currentTime, setCurrentTime] = useState(0);
@@ -14,6 +15,9 @@ export default function Home() {
   const [videoLink, setVideoLink] = useState('');
   const [showForm, setShowForm] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [trancriptText, setTranscriptText] = useState('');
+
   
 
   const getVideoId = (url: string) => {
@@ -49,18 +53,21 @@ export default function Home() {
     }
 
     try {
-      const response = await fetch(`${api_url}/transcript?video_url=${videoLink}`);
-      if (!response.ok) {
-        setLoading(false);
-        throw new Error('Failed to fetch transcript data');
-      }
-      const data = await response.json();
-      setTranscript(data.response.words);
+      // const response = await fetch(`${api_url}/transcript?video_url=${videoLink}`);
+      // if (!response.ok) {
+      //   setLoading(false);
+      //   throw new Error('Failed to fetch transcript data');
+      // }
+      // const data = await response.json();
+      // setTranscript(data.response.words);
+      setTranscript(test_transcript.response.words)
+      setTranscriptText(test_transcript.response.text)
       setVideoId(id);
       setShowForm(false); // Hide the form after fetching transcript data
       setLoading(false);
     } catch (error) {
       setLoading(false);
+      NotificationManager.error('Failed to fetch transcript data', 'Error', 3000);
       console.error('Error fetching transcript:', error);
     }
   };
@@ -68,7 +75,7 @@ export default function Home() {
   return (
     <div>
     <p className='mobile text-center uppercase lg:hidden font-bold text-md mt-[50%]'>please open on a bigger screen</p>
-    <main className="flex-1 flex-col items-center justify-center w-screen h-full p-10">
+    <main className="flex-1 flex-col items-center justify-center w-screen h-full pt-10 px-10">
       {showForm && (
         <form className="flex flex-col items-center" onSubmit={generateTranscript}>
           <h1 className="text-4xl font-bold mb-4">Welcome to Intellisense AI</h1>
@@ -115,7 +122,7 @@ export default function Home() {
             />
             <Transcript transcript={transcript} currentTime={currentTime} player={player}/>
           </div>
-          <ChatArea />
+          <ChatArea transcript={trancriptText} />
         </div>
       )}
     </main>

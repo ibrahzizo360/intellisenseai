@@ -21,9 +21,9 @@ const Transcript: React.FC<TranscriptProps> = ({ transcript, currentTime }) => {
     setTimeout(() => {
       if (containerRef.current && index !== -1) {
         const activeElement = containerRef.current.children[index];
-        activeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        activeElement.scrollIntoView({ behavior: 'instant', block: 'center' });
       }
-    }, 100); // Adjust the delay as needed
+    }, 1); // Adjust the delay as needed
   }, [transcript, currentTime]);
   
 

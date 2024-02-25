@@ -31,7 +31,6 @@ const MovieClip: React.FC<MovieClipProps> = ({
   const handleReady = (event: { target: any }) => {
     // Set the player reference when the player is ready
     setPlayer(event.target);
-    console.log("Player is ready");
     event.target.pauseVideo();
   };
 
@@ -45,7 +44,6 @@ const MovieClip: React.FC<MovieClipProps> = ({
       // Store the interval ID so we can clear it later
       intervalRef.current = intervalId;
     } else {
-      console.log("Video is not playing");
       // Stop the interval when the video stops playing
       if (intervalRef.current !== null) {
         clearInterval(intervalRef.current);
