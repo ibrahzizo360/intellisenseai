@@ -53,17 +53,16 @@ export default function Home() {
     }
 
     try {
-      // const response = await fetch(`${api_url}/transcript?video_url=${videoLink}`);
-      // if (!response.ok) {
-      //   setLoading(false);
-      //   throw new Error('Failed to fetch transcript data');
-      // }
-      // const data = await response.json();
-      // setTranscript(data.response.words);
-      setTranscript(test_transcript.response.words)
-      setTranscriptText(test_transcript.response.text)
+      const response = await fetch(`${api_url}/transcript?video_url=${videoLink}`);
+      if (!response.ok) {
+        setLoading(false);
+        NotificationManager.error('Failed to fetch transcript data', 'Error', 3000);
+        throw new Error('Failed to fetch transcript data');
+      }
+      const data = await response.json();
+      setTranscript(data.response.words);
       setVideoId(id);
-      setShowForm(false); // Hide the form after fetching transcript data
+      setShowForm(false);
       setLoading(false);
     } catch (error) {
       setLoading(false);

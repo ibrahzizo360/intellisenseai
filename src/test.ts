@@ -93,7 +93,7 @@ interface Response {
     words: Word[];
 }
 
-function segmentWords(response: Response): SegmentedWord[] {
+export function segmentWords(response: Response): SegmentedWord[] {
     const segmentedWords: SegmentedWord[] = [];
     let currentSegment = '';
 
