@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect  } from 'react';
 import ChatLoader from './loaders/ChatLoader';
+import { api_url } from '@/utils';
+import axios from 'axios';
 
 interface ChatProps {
   transcript: string;
@@ -15,45 +17,62 @@ const ChatArea: React.FC<ChatProps> = ({transcript}) => {
   const [input, setInput] = useState<string>('');
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const loaderRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Scroll to the bottom of the chat container when messages change
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
+
+    if (loaderRef.current) {
+      loaderRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }
   }, [messages]);
 
   const sendMessage = async () => {
     setMessages(prevMessages => [...prevMessages, { text: input, user: 'user' }]);
-    const response = await fetchMessage(input); // Assuming fetchMessage function is defined elsewhere
-    setMessages(prevMessages => [...prevMessages, { text: response, user: 'bot' }]);
+    setLoading(true);
+    try {
+      const response = await fetchMessage(input);
+      setMessages(prevMessages => [...prevMessages, { text: response.text, user: 'bot' }]);
+    } catch (error) {
+      console.error('Error sending message:', error);
+      setMessages(prevMessages => [...prevMessages, { text: 'Sorry, I am unable to process your request at the moment.', user: 'bot' }]);
+    } finally {
+      setLoading(false);
+    }
     setInput('');
   };
   
-  console.log('messages', messages)
-  console.log('input', input)
-
-  const fetchMessage = async (message: string): Promise<string> => {
-  //   return 'In the heart of a bustling city, where skyscrapers kiss the clouds and the streets hum with the rhythm of life, there lies a hidden sanctuary. Its a place where time slows down, and the air is filled with the scent of jasmine and freshly brewed coffee. Here, amidst the chaos, one can find solace in the embrace of a good book or the melody of a street musicians guitar. Its a haven for dreamers, thinkers, and wanderers alike, where every corner tells a story, and every whisper holds a secret. Welcome to the city soul, where magic awaits around every corner';
-    return `1. What is the capital of France?
-    a) Paris
-    b) London
-    c) Rome
-    d) Berlin`
-};
+  
+  const fetchMessage = async (message: string): Promise<Message> => {
+    setLoading(true);
+    try {
+      const response = await axios.post(`${api_url}/chat`, { question: message, transcript_text: transcript });
+      if (response.status === 200) {
+        return { text: response.data.chat_completion, user: 'bot' };
+      } else {
+        throw new Error('Invalid response status');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className='lg:max-h-[92vh] bg-gray-800 rounded-md w-full'>
-      <div className='h-[80%] overflow-y-auto no-scrollbar'>
-        {messages.map((message, index) => (
+     <div className='h-[80%] overflow-y-auto no-scrollbar'>
+      {messages.map((message, index) => (
         <div key={index} className={`flex ${message.user === 'user' ? '' : ''} text-white my-5 ml-1`} ref={chatContainerRef}>
           {message.user !== 'user' && <img src="bot.png" alt="User" className="w-7 h-7  mx-2" />}
           {message.user === 'user' && <img src="user.png" alt="User" className="w-7 h-7  mx-2" />}
           {message.text}
-          {loading && <ChatLoader />}
         </div>
-        ))}
-      </div>
+      ))}
+      {loading && <ChatLoader ref={loaderRef}/>} 
+    </div>
+
       <hr className='my-1' />
       <div className='h-[20%] p-3'>
         <div className='border border-gray-200 rounded-md p-2 space-y-1'>

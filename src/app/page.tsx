@@ -61,6 +61,7 @@ export default function Home() {
       }
       const data = await response.json();
       setTranscript(data.response.words);
+      setTranscriptText(data.response.text);
       setVideoId(id);
       setShowForm(false);
       setLoading(false);
