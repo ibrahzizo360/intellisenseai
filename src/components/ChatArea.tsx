@@ -34,7 +34,6 @@ const ChatArea: React.FC<ChatProps> = ({transcript}) => {
   console.log('input', input)
 
   const fetchMessage = async (message: string): Promise<string> => {
-    // Your fetch logic here
   //   return 'In the heart of a bustling city, where skyscrapers kiss the clouds and the streets hum with the rhythm of life, there lies a hidden sanctuary. Its a place where time slows down, and the air is filled with the scent of jasmine and freshly brewed coffee. Here, amidst the chaos, one can find solace in the embrace of a good book or the melody of a street musicians guitar. Its a haven for dreamers, thinkers, and wanderers alike, where every corner tells a story, and every whisper holds a secret. Welcome to the city soul, where magic awaits around every corner';
     return `1. What is the capital of France?
     a) Paris
@@ -46,7 +45,6 @@ const ChatArea: React.FC<ChatProps> = ({transcript}) => {
   return (
     <div className='lg:max-h-[92vh] bg-gray-800 rounded-md w-full'>
       <div className='h-[80%] overflow-y-auto no-scrollbar'>
-        {/* Render messages */}
         {messages.map((message, index) => (
         <div key={index} className={`flex ${message.user === 'user' ? '' : ''} text-white my-5 ml-1`} ref={chatContainerRef}>
           {message.user !== 'user' && <img src="bot.png" alt="User" className="w-7 h-7  mx-2" />}
