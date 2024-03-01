@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 
 interface TranscriptProps {
-  transcript: { word: string; startTime: number; endTime: number }[];
+  transcript: { word: string; start: number; end: number }[];
   currentTime: number;
   player: any;
 }
@@ -13,7 +13,7 @@ const Transcript: React.FC<TranscriptProps> = ({ transcript, currentTime }) => {
   useEffect(() => {
     // Find the index of the transcript item that corresponds to the current time
     const index = transcript.findIndex(
-      item => item.startTime > currentTime
+      item => item.start > currentTime
     );
     setActiveIndex(index);
   
