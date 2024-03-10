@@ -60,6 +60,23 @@ const ChatArea: React.FC<ChatProps> = ({transcript}) => {
     }
   };
 
+  const getSummary = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.post(`${api_url}/summary`, { transcript_text: transcript });
+      if (response.status === 200) {
+        setMessages(prevMessages => [...prevMessages, { text: response.data.summary, user: 'bot' }]);
+      } else {
+        throw new Error('Invalid response status');
+      }
+    } catch (error) {
+      console.error('Error fetching summary:', error);
+      setMessages(prevMessages => [...prevMessages, { text: 'Sorry, I am unable to process your request at the moment.', user: 'bot' }]);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <div className='lg:max-h-[92vh] bg-gray-800 rounded-md w-full'>
      <div className='h-[80%] overflow-y-auto no-scrollbar'>
@@ -85,8 +102,8 @@ const ChatArea: React.FC<ChatProps> = ({transcript}) => {
           />
           <div className='flex justify-between items-center'>
             <div className='flex gap-2 items-center'>
-              <button className='bg-gray-500 text-white rounded-md px-3 py-2 text-xs'>Quiz me</button>
-              <button className='bg-gray-500 text-white rounded-md px-3 py-2 text-xs'>Summarize</button>
+              <button className='bg-gray-500 text-white rounded-md px-3 py-2 text-xs hover:bg-gray-300'>Quiz me</button>
+              <button className='bg-gray-500 text-white rounded-md px-3 py-2 text-xs hover:bg-gray-300' onClick={getSummary}>Summarize</button>
             </div>
             <button className='bg-blue-500 text-white rounded-md px-3 py-2 text-xs' onClick={sendMessage}>
               Send
