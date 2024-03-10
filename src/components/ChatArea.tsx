@@ -106,7 +106,7 @@ const ChatArea: React.FC<ChatProps> = ({transcript}) => {
           <div className='w-[92%]'>
           {message.text.split('\n').map((line, index) => (
             <div key={index}>
-              {line}
+              {line === "%new%" ? <div className='my-2'/> : line}  
             </div>
           ))}
           </div>
