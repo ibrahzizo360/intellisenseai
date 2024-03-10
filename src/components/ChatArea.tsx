@@ -28,7 +28,7 @@ const ChatArea: React.FC<ChatProps> = ({transcript}) => {
     if (loaderRef.current) {
       loaderRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
-  }, [messages]);
+  }, [messages,loading]);
 
   const sendMessage = async () => {
     setMessages(prevMessages => [...prevMessages, { text: input, user: 'user' }]);
@@ -51,7 +51,8 @@ const ChatArea: React.FC<ChatProps> = ({transcript}) => {
     try {
       const response = await axios.post(`${api_url}/chat`, { question: message, transcript_text: transcript });
       if (response.status === 200) {
-        return { text: response.data.chat_completion, user: 'bot' };
+        console.log(response.data);     
+        return { text: response.data.chat_completion.content, user: 'bot' };
       } else {
         throw new Error('Invalid response status');
       }
@@ -64,13 +65,31 @@ const ChatArea: React.FC<ChatProps> = ({transcript}) => {
     setLoading(true);
     try {
       const response = await axios.post(`${api_url}/summary`, { transcript_text: transcript });
+      console.log(response.data);
       if (response.status === 200) {
-        setMessages(prevMessages => [...prevMessages, { text: response.data.summary, user: 'bot' }]);
+        setMessages(prevMessages => [...prevMessages, { text: response.data.summary.content, user: 'bot' }]);
       } else {
         throw new Error('Invalid response status');
       }
     } catch (error) {
       console.error('Error fetching summary:', error);
+      setMessages(prevMessages => [...prevMessages, { text: 'Sorry, I am unable to process your request at the moment.', user: 'bot' }]);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const getQuizzes = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.post(`${api_url}/quiz`, { transcript_text: transcript });
+      if (response.status === 200) {
+        setMessages(prevMessages => [...prevMessages, { text: response.data.quiz.content, user: 'bot' }]);
+      } else {
+        throw new Error('Invalid response status');
+      }
+    } catch (error) {
+      console.error('Error fetching quiz:', error);
       setMessages(prevMessages => [...prevMessages, { text: 'Sorry, I am unable to process your request at the moment.', user: 'bot' }]);
     } finally {
       setLoading(false);
@@ -84,7 +103,13 @@ const ChatArea: React.FC<ChatProps> = ({transcript}) => {
         <div key={index} className={`flex ${message.user === 'user' ? '' : ''} text-white my-5 ml-1`} ref={chatContainerRef}>
           {message.user !== 'user' && <img src="bot.png" alt="User" className="w-7 h-7  mx-2" />}
           {message.user === 'user' && <img src="user.png" alt="User" className="w-7 h-7  mx-2" />}
-          {message.text}
+          <div className='w-[92%]'>
+          {message.text.split('\n').map((line, index) => (
+            <div key={index}>
+              {line}
+            </div>
+          ))}
+          </div>
         </div>
       ))}
       {loading && <ChatLoader ref={loaderRef}/>} 
@@ -102,7 +127,7 @@ const ChatArea: React.FC<ChatProps> = ({transcript}) => {
           />
           <div className='flex justify-between items-center'>
             <div className='flex gap-2 items-center'>
-              <button className='bg-gray-500 text-white rounded-md px-3 py-2 text-xs hover:bg-gray-300'>Quiz me</button>
+              <button className='bg-gray-500 text-white rounded-md px-3 py-2 text-xs hover:bg-gray-300' onClick={getQuizzes}>Quiz me</button>
               <button className='bg-gray-500 text-white rounded-md px-3 py-2 text-xs hover:bg-gray-300' onClick={getSummary}>Summarize</button>
             </div>
             <button className='bg-blue-500 text-white rounded-md px-3 py-2 text-xs' onClick={sendMessage}>
