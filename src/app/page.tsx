@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import MovieClip from './Clip';
 import Transcript from './Transcript';
 import ChatArea from '@/components/ChatArea';
-import { api_url, test_transcript } from '@/utils';
+import { api_url } from '@/utils';
 import Loader from '@/components/loaders/Loader';
 import { NotificationManager } from 'react-notifications';
 
