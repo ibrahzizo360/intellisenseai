@@ -6,6 +6,7 @@ import ChatArea from '@/components/ChatArea';
 import { api_url } from '@/utils';
 import Loader from '@/components/loaders/Loader';
 import { NotificationManager } from 'react-notifications';
+import getYouTubeID from 'get-youtube-id';
 
 export default function Home() {
   const [currentTime, setCurrentTime] = useState(0);
@@ -21,8 +22,8 @@ export default function Home() {
   
 
   const getVideoId = (url: string) => {
-    const videoIdMatch = url.match(/[?&]v=([^&#]*)/);
-    return videoIdMatch ? videoIdMatch[1] : '';
+    const id = getYouTubeID(url);
+    return id;
   };
 
   const handleTimeUpdate = (event: any) => {
