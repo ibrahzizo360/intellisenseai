@@ -20,7 +20,7 @@ const MovieClip: React.FC<MovieClipProps> = ({
 
 
   const options: Options = {
-    height: '340',
+    height: '335',
     width: '640',
     playerVars: {
       autoplay: 1,
