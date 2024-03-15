@@ -5,7 +5,7 @@ import ChatArea from './components/ChatArea'
 
 const SlidePage = () => {
   return (
-    <main className='h-screen flex'>
+    <main className='h-screen flex '>
       <SlideViewer />
       <ChatArea />
     </main>
