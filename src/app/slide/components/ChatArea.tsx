@@ -7,11 +7,14 @@ const ChatArea = () => {
             <p>Chat</p>
             <div>Tools</div>
         </header>
-        <div>
-            <div className="w-full"></div>
-            <div>
-                <input type="text" />
-                <button></button>
+        <div className='p-5 w-full flex flex-col'>
+            <div className="w-full">
+                <p className="flex">Chat Area</p>
+            </div>
+            <div className='flex w-full'>
+                <input type="text" placeholder='Ask any question...' className='border border-blue-700 px-3 py-1.5 rounded-s-md
+                outline-none' />
+                <button className='bg-blue-700 px-3 py-1.5 rounded-e-md text-white'>Send</button>
             </div>
         </div>
     </div>
