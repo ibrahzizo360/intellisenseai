@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Document, Page, pdfjs } from 'react-pdf';
-import 'react-pdf/dist/Page/TextLayer.css';
-import 'react-pdf/dist/Page/AnnotationLayer.css';
-import pdf from '../../pdf/8.pdf';
+import React, { useState, useEffect, useRef } from "react";
+import { Document, Page, pdfjs } from "react-pdf";
+import "react-pdf/dist/Page/TextLayer.css";
+import "react-pdf/dist/Page/AnnotationLayer.css";
+import pdf from "../../pdf/8.pdf";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
@@ -20,10 +20,13 @@ const SlideViewer: React.FC<SlideViewerProps> = () => {
       setCurrentScroll(documentRef.current?.scrollTop || 0);
     };
 
-    documentRef.current?.container?.addEventListener('scroll', handleScroll);
+    documentRef.current?.container?.addEventListener("scroll", handleScroll);
 
     return () => {
-      documentRef.current?.container?.removeEventListener('scroll', handleScroll);
+      documentRef.current?.container?.removeEventListener(
+        "scroll",
+        handleScroll
+      );
     };
   }, []);
 
@@ -36,20 +39,24 @@ const SlideViewer: React.FC<SlideViewerProps> = () => {
   }
 
   return (
-    <div className='flex flex-col space-y-1 h-full p-5 w-1/2'>
-    <div className='font-semibold'>PDF title</div>
-    <div className='overflow-y-auto'>
-      <Document
-        file={pdf}
-        onLoadSuccess={onDocumentLoadSuccess}
-        loading={"Please wait i am loading"}
-        ref={documentRef}
-      >
-        {Array.from({ length: numPages }, (_, index) => (
-          <Page key={index + 1} pageNumber={index + 1} className={'my-3 shadow-xl'} />
-        ))}
-      </Document>
-    </div>
+    <div className="flex flex-col space-y-1 h-full p-5 w-1/2">
+      <div className="font-semibold">Machinge Learning</div>
+      <div className="overflow-y-auto">
+        <Document
+          file={pdf}
+          onLoadSuccess={onDocumentLoadSuccess}
+          loading={"Please wait i am loading"}
+          ref={documentRef}
+        >
+          {Array.from({ length: numPages }, (_, index) => (
+            <Page
+              key={index + 1}
+              pageNumber={index + 1}
+              className={"my-3 shadow-xl"}
+            />
+          ))}
+        </Document>
+      </div>
     </div>
   );
 };
