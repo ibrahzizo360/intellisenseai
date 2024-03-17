@@ -36,8 +36,9 @@ const SlideViewer: React.FC<SlideViewerProps> = () => {
   }
 
   return (
-    <div className='h-full p-5 rounded-md w-1/2 border overflow-y-auto'>
-      <div className='font-semibold'>PDF title</div>
+    <div className='flex flex-col space-y-1 h-full p-5 w-1/2'>
+    <div className='font-semibold'>PDF title</div>
+    <div className='overflow-y-auto'>
       <Document
         file={pdf}
         onLoadSuccess={onDocumentLoadSuccess}
@@ -48,6 +49,7 @@ const SlideViewer: React.FC<SlideViewerProps> = () => {
           <Page key={index + 1} pageNumber={index + 1} className={'my-3 shadow-xl'} />
         ))}
       </Document>
+    </div>
     </div>
   );
 };
