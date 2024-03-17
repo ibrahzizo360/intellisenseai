@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import SlideViewer from './components/SlideViewer'
 import ChatArea from './components/ChatArea'
