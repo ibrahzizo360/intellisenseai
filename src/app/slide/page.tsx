@@ -1,9 +1,10 @@
 'use client'
-import React, {useCallback, useMemo} from 'react'
+import React, {useCallback, useMemo, useEffect} from 'react'
 import {useDropzone} from 'react-dropzone'
 import FlexDirection  from 'react-dropzone'
 import SlideViewer from './components/SlideViewer'
 import ChatArea from './components/ChatArea'
+import axios from 'axios'
 
 const baseStyle = {
   flex: 1,
@@ -35,18 +36,42 @@ const rejectStyle = {
 
 
 const SlidePage = () => {
-  const onDrop = useCallback((acceptedFiles:any) => {
-    console.log(acceptedFiles)
-  }, [])
+
   const {
     getRootProps,
     getInputProps,
+    acceptedFiles,
     isFocused,
     isDragAccept,
     isDragReject
   } = useDropzone({accept: {
-    'image/*': [],
+    'application/msword': ['.docx','.doc'],
+    'application/pdf': ['.pdf'],
+    'application/vnd.ms-powerpoint': ['.ppt']
   }});
+
+  const uploadFile = useCallback(async (acceptedFiles:any) => {
+    const formData = new FormData();
+    formData.append('file', acceptedFiles[0]);
+  
+    try {
+      const response = await axios.post('http://localhost:8000/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.error('Error uploading file:', error);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (acceptedFiles.length > 0) uploadFile(acceptedFiles);
+  }, [acceptedFiles, uploadFile]);
+
+    
+
 
   const style = useMemo(() => ({
     ...baseStyle,
