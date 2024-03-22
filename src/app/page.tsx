@@ -8,6 +8,18 @@ export default function Home() {
         please open on a bigger screen
       </p>
       <main className="flex flex-col items-center justify-center w-screen h-full pt-10 px-10">
+        <div className="justify-between items-center w-full flex">
+          {/* <img
+            src="/logo.png"
+            alt="logo"
+            className="h-6 w-6 mx-auto"
+          /> */}
+          <div></div>
+          <div className="flex gap-8">
+            <Link href={'login'}><button className="px-4 py-2 rounded-md text-white bg-blue-700">Login</button></Link>
+            <Link href={'register'}><button className="px-4 py-2 rounded-md text-white bg-blue-700">Register</button></Link>
+          </div>
+        </div>
         <div>
           <h1 className="text-4xl font-bold mb-4 text-center">Welcome to knowtifAI</h1>
           <p className="text-lg my-9">
