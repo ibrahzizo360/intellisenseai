@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 
 const ChatArea = () => {
@@ -5,8 +6,8 @@ const ChatArea = () => {
     <div className='rounded-md w-1/2 border'>
          
         <header className='flex justify-between items-center px-2.5 font-semibold py-1'>
-            <p>Chat</p>
-            <div>Tools</div>
+            <p>Tools</p>
+            <Link href='/'>Go back Home</Link>
         </header>
 
         <div className='flex-1 flex-col justify-between h-[90%] p-2.5'>
