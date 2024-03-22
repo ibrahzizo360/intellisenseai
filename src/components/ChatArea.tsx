@@ -97,7 +97,7 @@ const ChatArea: React.FC<ChatProps> = ({transcript}) => {
   }
 
   return (
-    <div className='lg:max-h-[92vh] bg-gray-800 rounded-md w-full'>
+    <div className='lg:max-h-[88vh] bg-gray-800 rounded-md w-full'>
      <div className='h-[80%] overflow-y-auto no-scrollbar'>
       {messages.map((message, index) => (
         <div key={index} className={`flex ${message.user === 'user' ? '' : ''} text-white my-5 ml-1`} ref={chatContainerRef}>

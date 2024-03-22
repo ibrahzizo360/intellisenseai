@@ -28,7 +28,7 @@ const Transcript: React.FC<TranscriptProps> = ({ transcript, currentTime }) => {
   
 
   return (
-    <div className="w-[640px] mt-5 p-3 h-72 overflow-y-scroll bg-gray-50 border border-gray-300 rounded-lg tracking-wider leading-10 no-scrollbar whitespace-normal " ref={containerRef}>
+    <div className="w-[640px] mt-5 p-3 h-[16rem] overflow-y-scroll bg-gray-50 border border-gray-300 rounded-lg tracking-wider leading-10 no-scrollbar whitespace-normal " ref={containerRef}>
   {transcript.map((item, index) => (
     <div
       key={index}
