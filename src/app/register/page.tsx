@@ -24,7 +24,7 @@ const Register:React.FC = () => {
             console.log(res.data)
             console.log(process.env.NEXT_PUBLIC_API_URL)
             NotificationManager.success('Successfully signed up')
-            // window.location.href = '/login'
+            window.location.href = '/login'
         } catch(e:any){
             NotificationManager.error("Error occured while signing up")
             console.log(e)
