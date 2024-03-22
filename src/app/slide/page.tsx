@@ -5,6 +5,7 @@ import FlexDirection  from 'react-dropzone'
 import SlideViewer from './components/SlideViewer'
 import ChatArea from './components/ChatArea'
 import axios from 'axios'
+import Axios from '@/utils/axios'
 
 const baseStyle = {
   flex: 1,
@@ -53,16 +54,19 @@ const SlidePage = () => {
   const uploadFile = useCallback(async (acceptedFiles:any) => {
     const formData = new FormData();
     formData.append('file', acceptedFiles[0]);
+    const token = localStorage.getItem('access_token')
+    console.log(token)
   
     try {
-      const response = await axios.post('http://localhost:8000/upload', formData, {
+      const response = await Axios.post('upload', formData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`
         }
       });
       console.log(response.data);
     } catch (error) {
-      console.error('Error uploading file:', error);
+      console.log('Error uploading file:', error);
     }
   }, []);
 
