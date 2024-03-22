@@ -95,7 +95,7 @@ const SlidePage = () => {
         {!file && ( // Render dropzone only if no file is uploaded
           <div {...getRootProps({style})} className='cursor-pointer'>
             <input {...getInputProps()} />
-            <p>Drag 'n' drop some files here, or click to select files</p>
+            <p>Drag &apos;n&apos; drop your document here, or click to select document from your device</p>
           </div>
         )}
       </div>

@@ -44,7 +44,7 @@ const Login:React.FC = () => {
                     }}/>
 
                     <div>
-                        <p className='text-sm'>Don't have an account? <a href='/register' className='text-blue-400'>Register</a></p>
+                        <p className='text-sm'>Don&apos;t have an account? <a href='/register' className='text-blue-400'>Register</a></p>
                     </div>
                     <button type='submit' className='rounded-md px-2 py-1.5 bg-blue-400 text-white w-full hover:bg-blue-200' onClick={handleSubmit}>Login</button>
                 </div>
