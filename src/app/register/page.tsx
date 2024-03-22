@@ -20,9 +20,11 @@ const Register:React.FC = () => {
                 email,
                 password
             })
+            console.log(res)
             console.log(res.data)
+            console.log(process.env.NEXT_PUBLIC_API_URL)
             NotificationManager.success('Successfully signed up')
-            window.location.href = '/login'
+            // window.location.href = '/login'
         } catch(e:any){
             NotificationManager.error("Error occured while signing up")
             console.log(e)
@@ -31,7 +33,7 @@ const Register:React.FC = () => {
 
     return (
         <main className="h-screen flex mx-auto items-center justify-center">
-            <form method="POST">
+            <form method="POST" onSubmit={handleSubmit}>
                 <div className='space-y-4 flex flex-col items-center'>
                 <h1 className="text-center text-xl font-bold mb-10">Register an account with us</h1>
                 <input className="px-3 py-1.5 rounded-md  outline-none border border-gray-300 w-full" placeholder="Enter email" type='email'
@@ -50,7 +52,7 @@ const Register:React.FC = () => {
                     <div>
                         <p className='text-sm'>Already have an account? <a href='/login' className='text-blue-400'>Login</a></p>
                     </div>
-                <button type='submit' className='rounded-md px-2 py-1.5 bg-blue-400 text-white w-full hover:bg-blue-200' onClick={handleSubmit}>Register</button>
+                <button type='submit' className='rounded-md px-2 py-1.5 bg-blue-400 text-white w-full hover:bg-blue-200'>Register</button>
                 </div>
             </form>
         </main>

@@ -1,7 +1,17 @@
+'use client'
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Home() {
+  const [authenticated, setAuthenticated] = useState(false)
+
+  useEffect(() => {
+    const token = localStorage.getItem('access_token')
+    if (token) {
+      setAuthenticated(true)
+    }
+  }, []);
+
   return (
     <div>
       <p className="mobile text-center uppercase lg:hidden font-bold text-md mt-[50%]">
@@ -15,10 +25,12 @@ export default function Home() {
             className="h-6 w-6 mx-auto"
           /> */}
           <div></div>
-          <div className="flex gap-8">
+          {!authenticated && (
+            <div className="flex gap-8">
             <Link href={'login'}><button className="px-4 py-2 rounded-md text-white bg-blue-700">Login</button></Link>
             <Link href={'register'}><button className="px-4 py-2 rounded-md text-white bg-blue-700">Register</button></Link>
           </div>
+          )}     
         </div>
         <div>
           <h1 className="text-4xl font-bold mb-4 text-center">Welcome to knowtifAI</h1>
