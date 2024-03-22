@@ -1,11 +1,12 @@
 'use client'
-import React, {useCallback, useMemo, useEffect} from 'react'
+import React, {useCallback, useMemo, useEffect, useState} from 'react'
 import {useDropzone} from 'react-dropzone'
 import FlexDirection  from 'react-dropzone'
 import SlideViewer from './components/SlideViewer'
 import ChatArea from './components/ChatArea'
 import axios from 'axios'
 import Axios from '@/utils/axios'
+import { NotificationManager } from 'react-notifications'
 
 const baseStyle = {
   flex: 1,
@@ -37,6 +38,8 @@ const rejectStyle = {
 
 
 const SlidePage = () => {
+  const [file, setFile] = useState(null)
+  console.log(file)
 
   const {
     getRootProps,
@@ -55,7 +58,6 @@ const SlidePage = () => {
     const formData = new FormData();
     formData.append('file', acceptedFiles[0]);
     const token = localStorage.getItem('access_token')
-    console.log(token)
   
     try {
       const response = await Axios.post('upload', formData, {
@@ -65,6 +67,8 @@ const SlidePage = () => {
         }
       });
       console.log(response.data);
+      NotificationManager.success('File uploaded successfully', 'Success');
+      setFile(acceptedFiles[0]); // Set the uploaded file
     } catch (error) {
       console.log('Error uploading file:', error);
     }
@@ -73,9 +77,6 @@ const SlidePage = () => {
   useEffect(() => {
     if (acceptedFiles.length > 0) uploadFile(acceptedFiles);
   }, [acceptedFiles, uploadFile]);
-
-    
-
 
   const style = useMemo(() => ({
     ...baseStyle,
@@ -91,14 +92,20 @@ const SlidePage = () => {
   return (
     <main className='h-screen flex'>
       <div className='flex justify-center items-center mx-auto'>
-        <div {...getRootProps({style})} className='cursor-pointer'>
-        <input {...getInputProps()} />
-        <p>Drag 'n' drop some files here, or click to select files</p>
-        </div>
+        {!file && ( // Render dropzone only if no file is uploaded
+          <div {...getRootProps({style})} className='cursor-pointer'>
+            <input {...getInputProps()} />
+            <p>Drag 'n' drop some files here, or click to select files</p>
+          </div>
+        )}
       </div>
       
-      {/* <SlideViewer />
-      <ChatArea /> */}
+      {file && (
+        <>
+          <SlideViewer file={file} /> {/* Pass the uploaded file to SlideViewer */}
+          <ChatArea />
+        </>
+      )}
     </main>
   )
 }

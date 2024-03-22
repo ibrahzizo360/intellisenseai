@@ -6,9 +6,11 @@ import pdf from "../../pdf/8.pdf";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
-interface SlideViewerProps {}
+interface SlideViewerProps {
+  file: any;
+}
 
-const SlideViewer: React.FC<SlideViewerProps> = () => {
+const SlideViewer: React.FC<SlideViewerProps> = ({file}) => {
   const [numPages, setNumPages] = useState<number>(0);
   const [pagesRendered, setPagesRendered] = useState<number>(1); // Start with one page rendered
   const [currentScroll, setCurrentScroll] = useState<number>(0); // Track scroll position
@@ -40,10 +42,10 @@ const SlideViewer: React.FC<SlideViewerProps> = () => {
 
   return (
     <div className="flex flex-col space-y-1 h-full p-5 w-1/2">
-      <div className="font-semibold">Machinge Learning</div>
+      <div className="font-semibold">{file.name}</div>
       <div className="overflow-y-auto">
         <Document
-          file={pdf}
+          file={file}
           onLoadSuccess={onDocumentLoadSuccess}
           loading={"Please wait i am loading"}
           ref={documentRef}
