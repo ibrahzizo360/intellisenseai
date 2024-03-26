@@ -25,7 +25,6 @@ const ChatArea = ({ messages , setMessages }: {messages: Message[], setMessages:
 
     const getAnswer = async (message: string) => {
         const res = await postWithToken('get_answers', { question: message})
-        console.log("res",res)
         return res.answer[0].text.value
     }
 
@@ -55,7 +54,7 @@ const ChatArea = ({ messages , setMessages }: {messages: Message[], setMessages:
         <div className='flex-1 flex-col justify-between h-[90%] p-2.5'>
             
         <div className="h-[95%] p-3 flex flex-col space-y-4 text-sm tracking-wide overflow-y-scroll" ref={chatContainerRef}>
-        {messages.length > 0 ? (
+        {messages.length > 0 && (
          messages.map((message:Message, idx:number) => (
         <div
             key={idx}
@@ -67,8 +66,7 @@ const ChatArea = ({ messages , setMessages }: {messages: Message[], setMessages:
                 </React.Fragment>
             ))}
         </div>
-        ))
-        ) : (<div></div>)}
+        )))}
 
         {loading && <ChatLoader ref={loaderRef}/>}
 
