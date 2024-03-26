@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/Page/TextLayer.css";
 import "react-pdf/dist/Page/AnnotationLayer.css";
+import { Loader } from "lucide-react";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
@@ -46,7 +47,7 @@ const SlideViewer: React.FC<SlideViewerProps> = ({file}) => {
         <Document
           file={file}
           onLoadSuccess={onDocumentLoadSuccess}
-          loading={"Please wait i am loading"}
+          loading={<Loader/>}
           ref={documentRef}
         >
           {Array.from({ length: numPages }, (_, index) => (

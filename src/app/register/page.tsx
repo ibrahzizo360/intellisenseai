@@ -1,4 +1,5 @@
 'use client' 
+import ButtonLoader from '@/components/loaders/button-loader';
 import Axios from '@/utils/axios';
 import {useState} from 'react'
 import { NotificationManager } from 'react-notifications';
@@ -7,27 +8,28 @@ const Register:React.FC = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e:any) => {
         e.preventDefault()
         try {
+            setLoading(true)
             if (!username || !email || !password) {
                 NotificationManager.error('Please fill all fields')
                 throw new Error('Please fill all fields')
             }
-            const res = await Axios.post('register', {
+            await Axios.post('register', {
                 username,
                 email,
                 password
             })
-            console.log(res)
-            console.log(res.data)
-            console.log(process.env.NEXT_PUBLIC_API_URL)
+            setLoading(false)
             NotificationManager.success('Successfully signed up')
             window.location.href = '/login'
         } catch(e:any){
             NotificationManager.error("Error occured while signing up")
             console.log(e)
+            setLoading(false)
         }
     }
 
@@ -52,7 +54,9 @@ const Register:React.FC = () => {
                     <div>
                         <p className='text-sm'>Already have an account? <a href='/login' className='text-blue-400'>Login</a></p>
                     </div>
-                <button type='submit' className='rounded-md px-2 py-1.5 bg-blue-400 text-white w-full hover:bg-blue-200'>Register</button>
+                    <button type='submit' className='rounded-md px-2 py-1.5 bg-blue-400 text-white w-full hover:bg-blue-200' disabled={loading}>
+                        {loading ? <ButtonLoader/> : 'Register'}
+                    </button>
                 </div>
             </form>
         </main>
