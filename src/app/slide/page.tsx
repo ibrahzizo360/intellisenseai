@@ -1,44 +1,21 @@
 'use client'
 import React, {useCallback, useMemo, useEffect, useState} from 'react'
 import {useDropzone} from 'react-dropzone'
-import FlexDirection  from 'react-dropzone'
 import SlideViewer from './components/SlideViewer'
 import ChatArea from './components/ChatArea'
-import axios from 'axios'
 import Axios from '@/utils/axios'
 import { NotificationManager } from 'react-notifications'
+import { acceptStyle, focusedStyle, rejectStyle, baseStyle } from './utils'
+import { Progress } from "@/components/ui/progress"
 
-const baseStyle = {
-  flex: 1,
-  display: 'flex',
-
-  alignItems: 'center',
-  padding: '20px',
-  borderWidth: 2,
-  borderRadius: 2,
-  borderColor: '#eeeeee',
-  borderStyle: 'dashed',
-  backgroundColor: '#fafafa',
-  color: '#bdbdbd',
-  outline: 'none',
-  transition: 'border .24s ease-in-out'
-};
-
-const focusedStyle = {
-  borderColor: '#2196f3'
-};
-
-const acceptStyle = {
-  borderColor: '#00e676'
-};
-
-const rejectStyle = {
-  borderColor: '#ff1744'
-};
-
+interface Message {
+  text: string;
+  role: 'user' | 'bot';
+}
 
 const SlidePage = () => {
-  const [file, setFile] = useState(null)
+  const [file, setFile] = useState(null);
+  const [messages, setMessages] = useState<Message[]>([]);
   console.log(file)
 
   const {
@@ -64,9 +41,10 @@ const SlidePage = () => {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`
-        }
+        },
       });
       console.log(response.data);
+      setMessages(prevMessages => [...prevMessages, { text: response.data.message[0].text.value, role: 'bot' }]);
       NotificationManager.success('File uploaded successfully', 'Success');
       setFile(acceptedFiles[0]); // Set the uploaded file
     } catch (error) {
@@ -102,8 +80,8 @@ const SlidePage = () => {
       
       {file && (
         <>
-          <SlideViewer file={file} /> {/* Pass the uploaded file to SlideViewer */}
-          <ChatArea />
+          <SlideViewer file={file} />
+          <ChatArea messages={messages} setMessages={setMessages} />
         </>
       )}
     </main>
