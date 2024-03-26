@@ -7,8 +7,9 @@ import Axios from '@/utils/axios'
 import { NotificationManager } from 'react-notifications'
 import { acceptStyle, focusedStyle, rejectStyle, baseStyle } from './utils'
 import { Progress } from "@/components/ui/progress"
+import Loader from '@/components/loaders/Loader'
 
-interface Message {
+export interface Message {
   text: string;
   role: 'user' | 'bot';
 }
@@ -16,6 +17,7 @@ interface Message {
 const SlidePage = () => {
   const [file, setFile] = useState(null);
   const [messages, setMessages] = useState<Message[]>([]);
+  const [loading, setLoading] = useState(false)
   console.log(file)
 
   const {
@@ -37,6 +39,7 @@ const SlidePage = () => {
     const token = localStorage.getItem('access_token')
   
     try {
+      setLoading(true)
       const response = await Axios.post('upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -44,11 +47,14 @@ const SlidePage = () => {
         },
       });
       console.log(response.data);
+      setLoading(false)
       setMessages(prevMessages => [...prevMessages, { text: response.data.message[0].text.value, role: 'bot' }]);
       NotificationManager.success('File uploaded successfully', 'Success');
       setFile(acceptedFiles[0]); // Set the uploaded file
     } catch (error) {
       console.log('Error uploading file:', error);
+      NotificationManager.error('Error uploading file')
+      setLoading(false)
     }
   }, []);
 
@@ -70,7 +76,7 @@ const SlidePage = () => {
   return (
     <main className='h-screen flex'>
       <div className='flex justify-center items-center mx-auto'>
-        {!file && ( // Render dropzone only if no file is uploaded
+        {!file && !loading && ( // Render dropzone only if no file is uploaded
           <div {...getRootProps({style})} className='cursor-pointer'>
             <input {...getInputProps()} />
             <p>Drag &apos;n&apos; drop your document here, or click to select document from your device</p>
@@ -84,6 +90,8 @@ const SlidePage = () => {
           <ChatArea messages={messages} setMessages={setMessages} />
         </>
       )}
+
+      {loading && <Loader/>}
     </main>
   )
 }

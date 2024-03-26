@@ -1,4 +1,5 @@
 'use client' 
+import ButtonLoader from '@/components/loaders/button-loader';
 import Axios from '@/utils/axios';
 import {useState} from 'react'
 import { NotificationManager } from 'react-notifications';
@@ -6,6 +7,7 @@ import { NotificationManager } from 'react-notifications';
 const Login:React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e:any) => {
         e.preventDefault()
@@ -46,7 +48,10 @@ const Login:React.FC = () => {
                     <div>
                         <p className='text-sm'>Don&apos;t have an account? <a href='/register' className='text-blue-400'>Register</a></p>
                     </div>
-                    <button type='submit' className='rounded-md px-2 py-1.5 bg-blue-400 text-white w-full hover:bg-blue-200' onClick={handleSubmit}>Login</button>
+
+                    <button type='submit' className='rounded-md px-2 py-1.5 bg-blue-400 text-white w-full hover:bg-blue-200' disabled={loading} onClick={handleSubmit}>
+                        {loading ? <ButtonLoader/> : 'Register'}
+                    </button>
                 </div>
             </form>
         </main>
