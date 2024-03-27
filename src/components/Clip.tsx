@@ -16,7 +16,7 @@ const MovieClip: React.FC<MovieClipProps> = ({
   onSeekTo,
   setPlayer,
 }) => {
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);  
 
 
   const options: Options = {

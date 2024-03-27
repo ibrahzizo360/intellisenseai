@@ -1,7 +1,6 @@
 'use client';
 import React, { useState } from 'react';
 import ChatArea from '@/components/ChatArea';
-import { api_url } from '@/utils';
 import Loader from '@/components/loaders/Loader';
 import { NotificationManager } from 'react-notifications';
 import getYouTubeID from 'get-youtube-id';
@@ -55,7 +54,7 @@ export default function Home() {
     }
 
     try {
-      const response = await fetch(`${api_url}/transcript?video_url=${videoLink}`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/transcript?video_url=${videoLink}`);
       if (!response.ok) {
         setLoading(false);
         NotificationManager.error('Failed to fetch transcript data', 'Error', 3000);
