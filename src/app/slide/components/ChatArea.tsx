@@ -4,6 +4,7 @@ import Link from 'next/link'
 import React,{useEffect, useRef, useState} from 'react'
 import { Message } from '../page'
 import ChatLoader from '@/components/loaders/ChatLoader'
+import Latex from 'react-latex-next';
 
 const ChatArea = ({ messages , setMessages }: {messages: Message[], setMessages: React.Dispatch<React.SetStateAction<Message[]>>}) => {
     console.log("messages", messages)
@@ -11,7 +12,7 @@ const ChatArea = ({ messages , setMessages }: {messages: Message[], setMessages:
     const [input, setInput] = useState('');
     const loaderRef = useRef<HTMLDivElement>(null);
     const chatContainerRef = useRef<HTMLDivElement>(null);
-
+    
     useEffect(() => {
         // Scroll to the bottom of the chat container when messages change
         if (chatContainerRef.current) {
@@ -55,18 +56,15 @@ const ChatArea = ({ messages , setMessages }: {messages: Message[], setMessages:
             
         <div className="h-[95%] p-3 flex flex-col space-y-4 text-sm tracking-wide overflow-y-scroll" ref={chatContainerRef}>
         {messages.length > 0 && (
-         messages.map((message:Message, idx:number) => (
-        <div
-            key={idx}
-            className={`message ${message.role === 'bot' ? 'bg-slate-200' : 'bg-blue-500 text-white self-end'} p-3 rounded-md w-fit max-w-96`}
-        >
-            {message.text.split('\n').map((line:string, index:number) => (
-                <React.Fragment key={index}>
-                    {line} <br />
-                </React.Fragment>
-            ))}
-        </div>
-        )))}
+  messages.map((message: Message, idx: number) => (
+    <div
+      key={idx}
+      className={`message ${message.role === 'bot' ? 'bg-slate-200' : 'bg-blue-500 text-white self-end'} p-3 rounded-md w-fit max-w-96`}
+    >
+        <Latex>{message.text.replace(/\n/g, '<br />')}</Latex>
+    </div>
+  ))
+)}
 
         {loading && <ChatLoader ref={loaderRef}/>}
 
