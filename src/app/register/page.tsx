@@ -27,8 +27,13 @@ const Register:React.FC = () => {
             NotificationManager.success('Successfully signed up')
             window.location.href = '/login'
         } catch(e:any){
-            NotificationManager.error("Error occured while signing up")
             console.log(e)
+            if(e.response.status == 400) {
+                NotificationManager.error(e.response.data.detail)
+            } else {
+                NotificationManager.error("Error occured while signing up")
+            }
+        }finally{
             setLoading(false)
         }
     }

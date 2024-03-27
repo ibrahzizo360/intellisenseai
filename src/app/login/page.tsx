@@ -25,8 +25,13 @@ const Login:React.FC = () => {
             NotificationManager.success('Successfully logged in')
             window.location.href = '/'
         } catch(e:any){
-            NotificationManager.error("Error occured while signing up")
+            if(e.response.status == 401) {
+                NotificationManager.error(e.response.data.detail)
+            }else{
+                NotificationManager.error("Error occured while logging. Please try again later")
             console.log(e)
+            }
+            
         }
     }
 
@@ -50,7 +55,7 @@ const Login:React.FC = () => {
                     </div>
 
                     <button type='submit' className='rounded-md px-2 py-1.5 bg-blue-400 text-white w-full hover:bg-blue-200' disabled={loading} onClick={handleSubmit}>
-                        {loading ? <ButtonLoader/> : 'Register'}
+                        {loading ? <ButtonLoader/> : 'Login'}
                     </button>
                 </div>
             </form>
