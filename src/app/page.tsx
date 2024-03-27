@@ -1,11 +1,24 @@
 'use client'
+import { fetchWithToken } from "@/utils";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 export default function Home() {
-  const [authenticated, setAuthenticated] = useState(false)
+  const [authenticated, setAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
+    const getUser = async () => {
+      try{
+        const res = await fetchWithToken('me');
+        console.log(res)
+        setUser(res.username)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+
+    getUser()
     const token = localStorage.getItem('access_token')
     if (token) {
       setAuthenticated(true)
@@ -24,16 +37,16 @@ export default function Home() {
             alt="logo"
             className="h-6 w-6 mx-auto"
           /> */}
-          <div></div>
-          {!authenticated && (
+          <div className="text-lg font-bold text-purple-950">KnowtifAI</div>
+          {!authenticated ? (
             <div className="flex gap-8">
             <Link href={'login'}><button className="px-4 py-2 rounded-md text-white bg-blue-700">Login</button></Link>
             <Link href={'register'}><button className="px-4 py-2 rounded-md text-white bg-blue-700">Register</button></Link>
           </div>
-          )}     
+          ): (<p className="capitalize text-lg">Hi👋 {user}</p>)}     
         </div>
         <div>
-          <h1 className="text-4xl font-bold mb-4 text-center">Welcome to knowtifAI</h1>
+          <h1 className="text-4xl font-bold mb-4 text-center mt-7">Welcome to knowtifAI</h1>
           <p className="text-lg my-9">
             Empower learners with interactive learning experiences! 
           </p>
