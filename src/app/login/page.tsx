@@ -31,7 +31,9 @@ const Login:React.FC = () => {
             }else{
                 NotificationManager.error("Error occured while logging. Please try again later")
             console.log(e)
-            }
+            }         
+        } finally {
+            setLoading(false)
         }
     }
 

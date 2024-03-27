@@ -12,8 +12,8 @@ const Register:React.FC = () => {
 
     const handleSubmit = async (e:any) => {
         e.preventDefault()
+        setLoading(true)
         try {
-            setLoading(true)
             if (!username || !email || !password) {
                 NotificationManager.error('Please fill all fields')
                 throw new Error('Please fill all fields')
