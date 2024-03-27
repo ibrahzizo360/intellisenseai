@@ -3,7 +3,7 @@ export const api_url = "https://intellisenseai.fly.dev"
 
 
 
-import Axios from "./Axios";
+import Axios from "./axios";
 
 let token:any = null;
 

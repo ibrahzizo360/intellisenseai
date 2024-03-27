@@ -1,6 +1,6 @@
 'use client' 
 import ButtonLoader from '@/components/loaders/button-loader';
-import Axios from '@/utils/Axios';
+import Axios from '@/utils/axios';
 import {useState} from 'react'
 import { NotificationManager } from 'react-notifications';
 
