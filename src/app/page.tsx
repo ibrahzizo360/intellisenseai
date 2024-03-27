@@ -18,10 +18,12 @@ export default function Home() {
       }
     }
 
-    // getUser()
-    const token = localStorage.getItem('access_token')
+    getUser()
+    if(window){
+      const token = localStorage.getItem('access_token')
     if (token) {
       setAuthenticated(true)
+    }
     }
   }, []);
 
