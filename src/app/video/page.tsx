@@ -7,6 +7,7 @@ import getYouTubeID from 'get-youtube-id';
 import MovieClip from '@/components/Clip';
 import Transcript from '@/components/Transcript';
 import Link from 'next/link';
+import Axios from '@/utils/axios';
 
 export default function Home() {
   const [currentTime, setCurrentTime] = useState(0);
@@ -54,13 +55,13 @@ export default function Home() {
     }
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/transcript?video_url=${videoLink}`);
-      if (!response.ok) {
+      const response = await Axios.get(`transcript?video_url=${videoLink}`);
+      if (response.status != 200) {
         setLoading(false);
         NotificationManager.error('Failed to fetch transcript data', 'Error', 3000);
         throw new Error('Failed to fetch transcript data');
       }
-      const data = await response.json();
+      const data = await response.data;
       setTranscript(data.response.words);
       setTranscriptText(data.response.text);
       setVideoId(id);

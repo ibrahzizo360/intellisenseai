@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect  } from 'react';
 import ChatLoader from './loaders/ChatLoader';
 import axios from 'axios';
+import Axios from '@/utils/axios';
 
 interface ChatProps {
   transcript: string;
@@ -48,7 +49,7 @@ const ChatArea: React.FC<ChatProps> = ({transcript}) => {
   const fetchMessage = async (message: string): Promise<Message> => {
     setLoading(true);
     try {
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}chat`, { question: message, transcript_text: transcript });
+      const response = await Axios.post(`chat`, { question: message, transcript_text: transcript });
       if (response.status === 200) {
         console.log(response.data);     
         return { text: response.data.chat_completion.content, user: 'bot' };
@@ -63,7 +64,7 @@ const ChatArea: React.FC<ChatProps> = ({transcript}) => {
   const getSummary = async () => {
     setLoading(true);
     try {
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}summary`, { transcript_text: transcript });
+      const response = await Axios.post(`summary`, { transcript_text: transcript });
       console.log(response.data);
       if (response.status === 200) {
         setMessages(prevMessages => [...prevMessages, { text: response.data.summary.content, user: 'bot' }]);
@@ -81,7 +82,7 @@ const ChatArea: React.FC<ChatProps> = ({transcript}) => {
   const getQuizzes = async () => {
     setLoading(true);
     try {
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}quiz`, { transcript_text: transcript });
+      const response = await Axios.post(`quiz`, { transcript_text: transcript });
       if (response.status === 200) {
         setMessages(prevMessages => [...prevMessages, { text: response.data.quiz.content, user: 'bot' }]);
       } else {
