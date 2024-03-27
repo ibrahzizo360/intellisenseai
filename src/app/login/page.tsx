@@ -11,6 +11,7 @@ const Login:React.FC = () => {
 
     const handleSubmit = async (e:any) => {
         e.preventDefault()
+        setLoading(true)
         try {
             if (!email || !password) {
                 NotificationManager.error('Please fill all fields')
@@ -32,6 +33,8 @@ const Login:React.FC = () => {
             console.log(e)
             }
             
+        } finally {
+            setLoading(false)
         }
     }
 
