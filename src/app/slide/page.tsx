@@ -3,7 +3,7 @@ import React, {useCallback, useMemo, useEffect, useState} from 'react'
 import {useDropzone} from 'react-dropzone'
 import SlideViewer from './components/SlideViewer'
 import ChatArea from './components/ChatArea'
-import Axios from '@/utils/axios'
+import Axios from '@/utils/Axios'
 import { NotificationManager } from 'react-notifications'
 import { acceptStyle, focusedStyle, rejectStyle, baseStyle } from './utils'
 import { Progress } from "@/components/ui/progress"
