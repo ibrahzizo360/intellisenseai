@@ -4,7 +4,6 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 export default function Home() {
-  const [authenticated, setAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -18,14 +17,7 @@ export default function Home() {
       }
     }
 
-    
-    // getUser()
-    if(window){
-      const token = localStorage.getItem('access_token')
-    if (token) {
-      setAuthenticated(true)
-    }
-    }
+    getUser()
   }, []);
 
   return (
@@ -41,10 +33,10 @@ export default function Home() {
             className="h-6 w-6 mx-auto"
           /> */}
           <div className="text-lg font-bold text-purple-950">KnowtifAI</div>
-          {!authenticated ? (
+          {!user ? (
             <div className="flex gap-8">
-            <Link href={'login'}><button className="px-4 py-2 rounded-md text-white bg-blue-700">Login</button></Link>
-            <Link href={'register'}><button className="px-4 py-2 rounded-md text-white bg-blue-700">Register</button></Link>
+            <Link href={'login'}><button className="px-4 py-2 rounded-md text-white bg-blue-700 hover:bg-blue-400">Login</button></Link>
+            <Link href={'register'}><button className="px-4 py-2 rounded-md text-white bg-blue-700 hover:bg-blue-400">Register</button></Link>
           </div>
           ): (<p className="capitalize text-lg">Hi👋 {user}</p>)}     
         </div>
