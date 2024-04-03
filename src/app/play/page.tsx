@@ -1,45 +1,53 @@
-import React from 'react';
-import Markdown from 'react-markdown';
-import rehypeKatex from 'rehype-katex';
-import rehypeRaw from 'rehype-raw';
-import remarkMath from 'remark-math';
+'use client'
+import React, { useState, useEffect } from 'react';
+
+const ProgressComponent = ({ progress }:any) => {
+  return (
+    <div className="w-[90%] h-1.5 bg-gray-200 rounded-full overflow-hidden">
+      <div
+        className="h-full bg-green-500 rounded-full"
+        style={{ width: `${progress}%` }}
+      ></div>
+    </div>
+  );
+};
 
 const MyComponent = () => {
-  const text = `
-    Mean Squared Error (MSE) is a common metric used to evaluate the performance of a regression model. It quantifies the average squared difference between the actual values and the predicted values produced by the model. The formula for calculating the Mean Squared Error is given by:
-
-    \`\`\`latex
-    MSE = \\frac{1}{n} \\sum_{i=1}^{n} (y_i - \\hat{y}_i)^2
-    \`\`\`
-
-
-    \`\`\`math
-    MSE = \\frac{1}{n} \\sum_{i=1}^{n} (y_i - \\hat{y}_i)^2
-    \`\`\`
-
-    where:
-    - (n) is the number of data points,
-    - (y_i) is the actual value of the target variable for the (i)th data point,
-    - (\\hat{y}_i) is the predicted value of the target variable for the (i)th data point.
-
-    A lower MSE value indicates that the model's predictions are closer to the actual values, representing a better fit of the model to the data.
-  `;
+  const [progress, setProgress] = useState(30);
 
   return (
-    <div>
-      <Markdown
-        // remarkPlugins={[remarkGfm]}
-        remarkPlugins={[remarkMath]}
-        rehypePlugins={[rehypeRaw, rehypeKatex]}
+    <div className='h-screen flex items-center justify-center bg-gray-100'>
 
-        // components={{
-        //   br: ({ node, ...props }) => <br />,
-          
-        // }}
-        // skipHtml={false} // Enable rendering of HTML tags
-      >
-        {text}
-      </Markdown>
+      <div className="w-96 rounded-lg bg-white p-3 space-y-1">
+
+        <div className="flex w-full justify-between items-center">
+          <p className='font-medium text-xl'>Mid January</p>
+
+          <p className='text-xl mr-2 text-gray-500'>&gt;</p>
+        </div>
+
+        <div className='text-lg'>
+          $40,000
+        </div>
+
+
+        <div className='flex flex-row gap-6 items-center justify-center w-full'>
+            <ProgressComponent progress={progress} />
+            <span className="text-md">{progress}%</span>
+        </div>
+
+        <div className="flex w-full items-center flex-row justify-between">
+          <div className='flex gap-1'>
+            <p className='text-green-500'>Spent: </p>
+            <span>$ 12,000</span>
+          </div>
+
+          <div className='flex gap-1'>
+            <p className='text-yellow-500'>Remains:</p>
+            <span>$ 20,000</span>
+          </div>
+        </div>
+      </div>  
     </div>
   );
 };
