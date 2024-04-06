@@ -4,7 +4,8 @@ import React, { useEffect } from 'react'
 
 const ibm_plex_mono = IBM_Plex_Mono({
     subsets: ["latin"],
-    weight: "300"
+    weight: "300",
+    variable: "--ibm-plex-mono"
 });
 
 const Header = () => {

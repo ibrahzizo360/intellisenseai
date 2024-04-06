@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Nav from "@/components/Nav";
 import { fetchWithToken } from "@/utils";
-import { IBM_Plex_Mono } from "next/font/google";
+import { IBM_Plex_Mono, Jura } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -11,6 +11,11 @@ import React, { useEffect, useState } from "react";
 const ibm_plex_mono = IBM_Plex_Mono({
   subsets: ["latin"],
   weight: "300"
+});
+
+const jura = Jura({
+  subsets: ["latin"],
+  weight: "600"
 });
 
 export default function Home() {
@@ -113,16 +118,16 @@ export default function Home() {
 
 
 
-          <p className="font-semibold text-center text-3xl w-[70%] mx-auto">&quot;Ensure inclusive and equitable quality education and promote lifelong learning opportunities for all&quot;</p>
+          <p className={`font-semibold text-center text-3xl w-[70%] mx-auto font-sans ${jura.className}`}>&quot;Ensure inclusive and equitable quality education and promote lifelong learning opportunities for all&quot;</p>
 
-          <p className="font-light text-center text-3xl w-[70%] mx-auto my-10">SDG 4</p>
+          <p className={`font-light text-center text-3xl w-[70%] mx-auto my-10 ${jura.className}`}>SDG 4</p>
 
 
 
           <Image src={'/sdg-2.svg'} width={375} height={218} alt="sdg-logo" className="mx-auto" />
 
 
-          <div className="bg-white my-20">
+          <div className="bg-white mt-20">
             <div className="flex mx-auto w-[80%] gap-56 justify-between items-center py-24">
               <p className="w-[600px] text-2xl font-semibold tracking-wide">Ready to be KnowtifAI&apos;d? <span className="text-gray-600">Dive into KnowtifAI&apos;s educational AI tools and unlock endless possibilities for exploring your potential! Akwaaba!</span></p>
 

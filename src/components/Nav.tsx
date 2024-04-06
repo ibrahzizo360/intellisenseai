@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 const Nav = () => {
@@ -13,10 +14,10 @@ const Nav = () => {
         />  
 
         <div className='flex gap-16 items-center'>
-            <h2 className="text-sm font-semibold">Features</h2>
-            <h2 className="text-sm font-semibold">Sign In</h2>
-            <h2 className="text-sm font-semibold">About</h2>
-            <button className="bg-[#53DB13] px-6 py-3 rounded-md bg-opacity-75">Get Started</button>       
+            <Link href='/features'><h2 className="text-sm font-semibold cursor-pointer hover:text-green-400">Features</h2></Link>
+            <Link href='/login'><h2 className="text-sm font-semibold cursor-pointer hover:text-green-400">Sign In</h2></Link>
+            <Link href='/about'><h2 className="text-sm font-semibold cursor-pointer hover:text-green-400">About</h2></Link>
+            <Link href='/register'><button className="bg-[#53DB13] px-6 py-3 rounded-md bg-opacity-75 hover:bg-[#84d160]">Get Started</button></Link>      
         </div>
     </nav>
   )
