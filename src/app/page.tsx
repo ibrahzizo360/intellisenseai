@@ -132,8 +132,8 @@ export default function Home() {
               <p className="w-[600px] text-2xl font-semibold tracking-wide">Ready to be KnowtifAI&apos;d? <span className="text-gray-600">Dive into KnowtifAI&apos;s educational AI tools and unlock endless possibilities for exploring your potential! Akwaaba!</span></p>
 
 
-              <Link href="/signup">
-            <button className="bg-[#53DB13] px-10 py-5 rounded-xl mt-8 text-white bg-opacity-80">
+              <Link href="/register">
+            <button className="bg-[#53DB13] hover:bg-[#84d160] px-10 py-5 rounded-xl mt-8 text-white bg-opacity-80">
               Get Started
             </button>
             </Link> 

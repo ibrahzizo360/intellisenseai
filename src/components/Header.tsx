@@ -65,8 +65,8 @@ const Header = () => {
           KnowtifAI propels education into the digital age, offering users an innovative platform to engage with video content and learning materials seamlessly.
           </p>
 
-          <Link href="/signup">
-            <button className="bg-[#53DB13] px-6 py-3 rounded-md mt-8 text-white bg-opacity-80">
+          <Link href="/register">
+            <button className="bg-[#53DB13] hover:bg-[#84d160] px-8 py-4 rounded-xl mt-8 text-white bg-opacity-80">
               Get Started
             </button>
           </Link> 
