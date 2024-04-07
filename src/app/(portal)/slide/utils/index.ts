@@ -9,7 +9,7 @@ export const baseStyle = {
     borderRadius: 2,
     borderColor: '#eeeeee',
     borderStyle: 'dashed',
-    backgroundColor: '#fafafa',
+    backgroundColor: '#e7fefc',
     color: '#bdbdbd',
     outline: 'none',
     transition: 'border .24s ease-in-out'
