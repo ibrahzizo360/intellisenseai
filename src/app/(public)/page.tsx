@@ -44,7 +44,6 @@ export default function Home() {
         please open on a bigger screen
       </p> */}
       <main className="flex flex-col items-center justify-center w-screen h-full">
-        <Nav />
         <Header />
 
         <div className="flex bg-[#DBEEED] flex-col">
@@ -140,10 +139,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-
-
-
-        <Footer/>
       </main>
     </div>
   );
