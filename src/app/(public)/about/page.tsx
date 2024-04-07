@@ -26,7 +26,7 @@ const About = () => {
             </div>
         </div>
 
-        <div className='mt-24 mx-auto w-[80%] '>
+        <div className='mt-12 mx-auto w-[80%] '>
         <p className='ml-8 text-[#A43697]'>Meet the Team</p>
 
         <h2 className='font-bold ml-8 text-3xl mt-7 mb-7'>Meet our dedicated team of innovators</h2>
@@ -72,6 +72,28 @@ const About = () => {
                     <Link href="#"><Image src={'/linkedin.png'} width={35} height={10} alt="linkedin" /></Link>
                 </div>
                 </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div className='py-10 bg-[#e7fefc] my-40'>
+            <div className="flex w-[80%] mx-auto gap-10">
+                <div className="rounded-3xl bg-white border border-green-500 space-y-4 p-8 w-[535px]">
+                    <p className='text-[#A43697]'>Our Vision</p>
+
+                    <h2 className='text-3xl font-bold'>Empowering Lives Through AI</h2>
+
+                    <p className="text-gray-600">Our steadfast vision is to empower lives through accessible, effortless, and stress-free learning and research. By harnessing the power of AI, we aspire to ignite personal growth, foster innovation, and shape a brighter future for all.</p>
+                </div>
+
+
+                <div className="rounded-3xl bg-white border border-green-500 space-y-4 p-8 w-[535px]">
+                    <p className='text-[#A43697]'>Our Mission</p>
+
+                    <h2 className='text-3xl font-bold'>Educational opportunities accessible to everyone, anywhere</h2>
+
+                    <p className="text-gray-600">We aim to make educational opportunities accessible to everyone, regardless of location, through the power of AI.</p>
                 </div>
             </div>
         </div>
