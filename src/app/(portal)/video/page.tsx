@@ -8,6 +8,7 @@ import MovieClip from '@/components/Clip';
 import Transcript from '@/components/Transcript';
 import Link from 'next/link';
 import Axios from '@/utils/axios';
+import Image from 'next/image';
 
 export default function Home() {
   const [currentTime, setCurrentTime] = useState(0);
@@ -77,24 +78,35 @@ export default function Home() {
   return (
     <div>
     <p className='mobile text-center uppercase lg:hidden font-bold text-md mt-[50%]'>please open on a bigger screen</p>
-    <main className="flex-1 flex-col items-center justify-center w-screen h-full pt-10 px-10">
+    <main className="flex-1 flex-col items-center justify-center w-screen h-full pt-16 px-10">
       {showForm && (
         <form className="flex flex-col items-center" onSubmit={generateTranscript}>
-        <p className=' w-[40rem] text-lg mt-20 mb-10'>Want to see how <span className='text-purple-500 font-semibold'>KnowtifAI</span> works? Enter a YouTube video URL and explore its capabilities for deeper learning engagement.</p>
-          <label htmlFor="search" className="text-lg my-6 mt-8">
-            Enter youtube video URL to get started:
+
+          <Link href={'/'}><Image src='/logo-round.svg' height={90} width={90} alt='logo' className='mb-10' /></Link>
+
+          <div className="flex justify-center items-center gap-5 mb-7">
+            <Image src={'/YouTube.svg'} width={70} height={70} alt="youtube-logo" className="" /> 
+
+            <h2 className="font-semibold text-xl">Youtube Video Interaction</h2>
+          </div>
+
+          <p className={`text-xl w-[587px] text-center text-gray-600`}>Enter a valid youtube link to enjoy seamless interactions with video contents</p>
+
+
+          <label htmlFor="search" className="text-2xl my-6 mt-16 font-light">
+            Enter youtube video URL:
           </label>
           <input
             type="text"
             id="search"
             value={videoLink}
             onChange={onInputChanged}
-            className="border border-gray-300 rounded-md px-4 py-2 w-96 focus:outline-none focus:border-blue-500"
+            className="border border-gray-300 rounded-lg px-6 py-3 text-gray-600 text-xl w-[50%] focus:outline-none bg-[#e7fefc]"
             placeholder="https://www.youtube.com/watch?v=SSjdRXwqg_U"
           />
           <button
             type="submit"
-            className="my-10 bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            className="my-10 bg-[#A43697] hover:bg-[#aa469e] text-xl  text-white py-3 px-12 rounded-md focus:outline-none focus:ring-offset-2"
           >
             Start Learning
           </button>

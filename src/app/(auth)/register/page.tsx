@@ -2,6 +2,7 @@
 import ButtonLoader from '@/components/loaders/button-loader';
 import Axios from '@/utils/axios';
 import Image from 'next/image';
+import Link from 'next/link';
 import {useState} from 'react'
 import { NotificationManager } from 'react-notifications';
 
@@ -47,7 +48,7 @@ const Register:React.FC = () => {
             <form method="POST" onSubmit={handleSubmit} className='mx-auto w-[60%]'>
                 <div className='flex flex-col items-center my-24'>
                 
-                <Image src='/logo-round.svg' height={60} width={60} alt='logo' className='' />  
+                <Link href={'/'}><Image src='/logo-round.svg' height={60} width={60} alt='logo' className='' /></Link>
                     
                 <h1 className="text-center text-2xl font-bold mb-10 mt-16 text-gray-600">Register an account with us</h1>
 
