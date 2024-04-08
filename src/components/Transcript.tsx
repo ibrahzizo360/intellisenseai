@@ -28,13 +28,13 @@ const Transcript: React.FC<TranscriptProps> = ({ transcript, currentTime }) => {
   
 
   return (
-    <div className="w-[640px] mt-5 p-3 h-[16rem] overflow-y-scroll bg-gray-50 border border-gray-300 rounded-lg tracking-wider leading-10 no-scrollbar whitespace-normal " ref={containerRef}>
+    <div className="w-[640px] mt-5 p-3 h-[308px] overflow-y-scroll bg-[#dceeed] border border-gray-300 rounded-lg tracking-wider leading-10 no-scrollbar whitespace-normal " ref={containerRef}>
   {transcript.map((item, index) => (
     <div
       key={index}
-      className={`py-2 text-sm mr-1 whitespace-normal inline-block ${
+      className={`py-1 text-sm mr-1 whitespace-normal inline-block ${
         index === activeIndex
-          ? 'bg-blue-200 rounded-md'
+          ? 'bg-[#afb9ec] rounded-xl'
           : ''
       }`}
     >
