@@ -9,13 +9,15 @@ const Nav = () => {
   
   return (
     <nav className="justify-between items-center w-full flex bg-[#155552] py-5 px-28 text-white fixed top-0 bg-opacity-90 z-50">
+      <Link href='/'>
         <Image
           src="/logo.svg"
           alt="logo"
           width={140}
           height={140}
           className=""
-        />  
+        /> 
+      </Link>
 
         <div className='flex gap-16 items-center'>
             <Link href='/features'><h2 className={`text-sm font-semibold cursor-pointer hover:text-green-400 ${path === '/features' ? 'border-b-2' : ''}`}>Features</h2></Link>
