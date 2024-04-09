@@ -30,9 +30,11 @@ const Login:React.FC = () => {
         } catch(e:any){
             if(e.response.status == 401) {
                 NotificationManager.error(e.response.data.detail)
+                setLoading(false)
             }else{
                 NotificationManager.error("Error occured while logging. Please try again later")
             console.log(e)
+            setLoading(false)
             }
         }
     }

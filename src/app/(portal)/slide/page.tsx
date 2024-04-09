@@ -55,10 +55,20 @@ const SlidePage = () => {
       setMessages(prevMessages => [...prevMessages, { text: response.data.message[0].text.value, role: 'bot' }]);
       NotificationManager.success('File uploaded successfully', 'Success');
       setFile(acceptedFiles[0]); // Set the uploaded file
-    } catch (error) {
-      console.log('Error uploading file:', error);
-      NotificationManager.error('Error uploading file')
+    } catch (error:any) {
+      if(error.response.status === 401) {
+        NotificationManager.error('Unauthorized access, please login to continue')
+        setLoading(false)
+        setTimeout(() => {
+          window.location.href = '/login'
+        }, 3000)  
+        
+      } else {
+        console.log('Error uploading file:', error);
+      NotificationManager.error('Error uploading file. Please try again');
       setLoading(false)
+      }
+      
     }
   }, []);
 
@@ -78,7 +88,7 @@ const SlidePage = () => {
   ]);
 
   return (
-    <main className='h-screen'>
+    <main className='h-screen flex'>
       <div className='flex flex-col mx-auto'>
         {!file && !loading && ( // Render dropzone only if no file is uploaded
           <div className='flex flex-col items-center w-full'>
