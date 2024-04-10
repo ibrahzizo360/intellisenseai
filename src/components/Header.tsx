@@ -56,8 +56,8 @@ const Header = () => {
       }, []);
 
   return (
-        <header className="flex items-center justify-center h-[720px] w-screen flex-col bg-[url('/header.svg')] bg-cover bg-no-repeat">
-          <h2 className="text-[70px] font-bold text-center text-white mx-auto w-[80%]">
+        <header className="flex items-center justify-center lg:h-[720px] w-screen flex-col bg-[url('/header.svg')] bg-cover bg-no-repeat">
+          <h2 className="lg:text-[70px] font-bold text-center text-white mx-auto w-[80%]">
             Enter the future of <span id='typewriter' className="text-purple-500"></span>
           </h2>
 

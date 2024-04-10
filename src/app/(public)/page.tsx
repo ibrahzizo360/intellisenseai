@@ -47,22 +47,22 @@ export default function Home() {
         <Header />
 
         <div className="flex bg-[#DBEEED] flex-col">
-          <div className="w-[80%] mx-auto my-24">
-            <div className="flex justify-between gap-96">
+          <div className="w-[80%] mx-auto lg:my-24">
+            <div className="flex justify-between lg:gap-96">
             <p className="text-xl tracking-wide mt-5">Faster and Easier way to learn with KnowtifAI:<span className="text-slate-700"> an AI-powered educational application offering a faster, easier, and more convenient way to engage with learning materials, and provides personalized assistance to enhance the learning experience.</span></p>
 
             <Image src={"/icon.svg"} width={200} height={200} alt="sdg-logo" />
             </div>
 
 
-            <div className="flex justify-between gap-56 my-24">
+            <div className="flex justify-between lg:gap-56 my-24">
 
               <div className="flex flex-col gap-3 justify-center items-center rounded-md bg-white p-10 text-center">
                 <Image src={'/YouTube.svg'} width={70} height={70} alt="youtube-logo" className="-mt-8" />
 
                 <h2 className="font-semibold">Youtube video interaction</h2>   
 
-                <p className={`text-slate-700 text-sm w-96 ${ibm_plex_mono.className}`}>Access this feature and upload your preferred Youtube video link </p>
+                <p className={`text-slate-700 text-sm lg:w-96 ${ibm_plex_mono.className}`}>Access this feature and upload your preferred Youtube video link </p>
               </div>
 
 
@@ -71,9 +71,9 @@ export default function Home() {
 
                 <h2 className="font-semibold my-3">Lecture Notes / Text Assistance</h2>   
 
-                <p className={`text-slate-700 text-sm w-96 ${ibm_plex_mono.className}`}>Access this feature and upload your preferred document.</p>
+                <p className={`text-slate-700 text-sm lg:w-96 ${ibm_plex_mono.className}`}>Access this feature and upload your preferred document.</p>
                 <br />
-                <p className={`text-slate-700 text-sm w-96 -mt-3 ${ibm_plex_mono.className}`}>**we are accepting only pdf format at this time</p>
+                <p className={`text-slate-700 text-sm lg:w-96 -mt-3 ${ibm_plex_mono.className}`}>**we are accepting only pdf format at this time</p>
               </div>
             </div>
           </div>
@@ -92,11 +92,11 @@ export default function Home() {
 
 
 
-          <div className="flex mx-auto w-[80%] gap-36 mb-44">
+          <div className="flex mx-auto w-[80%] lg:gap-36 mb-44">
             <Image src={'/about_1.svg'} width={600} height={391} alt="about-us" />
 
-            <div className="flex bg-white rounded-3xl flex-col text-center justify-center items-center h-[280px]
-             p-10 w-[460px] mt-12">
+            <div className="flex bg-white rounded-3xl flex-col text-center justify-center items-center lg:h-[280px]
+             p-10 lg:w-[460px] mt-12">
               <h2 className="font-semibold mb-8">Unleashing the power of AI</h2>
 
               <p className={`text-sm text-slate-700 ${ibm_plex_mono.className}`}>&quot;We leverage GPT tools and other cutting-edge technologies to create personalized, interactive learning journeys that spark curiosity and joy.&quot;</p>
@@ -104,11 +104,11 @@ export default function Home() {
           </div>
 
 
-          <div className="flex mx-auto w-[80%] gap-36 mb-24 flex-row-reverse">
+          <div className="flex mx-auto w-[80%] lg:gap-36 mb-24 flex-row-reverse">
             <Image src={'/about_2.svg'} width={600} height={391} alt="about-us" />
 
-            <div className="flex bg-white rounded-3xl flex-col text-center justify-center items-center h-[280px]
-             p-10 w-[460px] mt-12">
+            <div className="flex bg-white rounded-3xl flex-col text-center justify-center items-center lg:h-[280px]
+             p-10 lg:w-[460px] mt-12">
               <h2 className="font-semibold mb-8">Building a diverse learning culture</h2>
 
               <p className={`text-sm text-slate-700 ${ibm_plex_mono.className}`}>&quot;We embrace all learners, regardless of background or ability. Through user data analysis, we understand the unique needs of different demographics and students with special needs.&quot;</p>

@@ -6,7 +6,7 @@ const About = () => {
   return (
     <main className='mt-[88px] bg-white'>
 
-        <div className="flex mx-auto w-[80%] py-24 gap-10">
+        <div className="flex mx-auto w-[80%] py-24 gap-10 flex-col lg:flex-row">
             <div className='p-8 bg-[#e7fefc] rounded-3xl'>
                 <p className='text-[#A43697]'>How it started</p>
 

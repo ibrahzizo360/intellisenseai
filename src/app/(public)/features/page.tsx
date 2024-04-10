@@ -32,7 +32,7 @@ const Features = () => {
                     <div className="flex flex-col">
                         <Image src={'/feat-1.svg'} height={390} width={283} alt="feature" />
 
-                        <div className="flex p-4 items-center bg-white rounded-3xl mt-6 w-[283px] gap-3 text-center font-semibold">
+                        <div className="flex p-4 items-center bg-white rounded-3xl mt-6 lg:w-[283px] gap-3 text-center font-semibold">
                             <Image src={'/YouTube.svg'} height={78} width={78} alt="icon" />
 
                             <p className={`${irish.className}`}>Gain deeper insights from videos.</p>
@@ -42,7 +42,7 @@ const Features = () => {
                     <div className="flex flex-col-reverse">
                         <Image src={'/feat-2.svg'} height={390} width={283} alt="feature" />
 
-                        <div className="flex p-4 items-center bg-white rounded-3xl mb-6 w-[283px] gap-3 text-center font-semibold">
+                        <div className="flex p-4 items-center bg-white rounded-3xl mb-6  w-[283px] gap-3 text-center font-semibold">
                             <Image src={'/Document.svg'} height={78} width={78} alt="icon" />
 
                             <p className={`${irish.className}`}>Uncover hidden and complex information within lecture notes.</p>
@@ -52,7 +52,7 @@ const Features = () => {
             </div>
 
             <div className="py-20 px-5 bg-[#dbeeed]">
-                <div className="mx-auto w-4/5 flex justify-between">
+                <div className="mx-auto w-4/5 flex justify-between flex-col lg:flex-row gap-12 lg:gap-0">
                     <div className="rounded-md">
                         <Image src={'/youtube-feat.svg'} height={425} width={507} alt="feature" />
                         <div className="bg-white w-[507px] p-7 flex flex-col relative">
@@ -125,7 +125,7 @@ const Features = () => {
                     </div>
 
                     </div>
-                        
+                       
             </div>
         </main>
     )

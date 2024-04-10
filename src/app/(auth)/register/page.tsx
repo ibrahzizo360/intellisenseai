@@ -42,7 +42,7 @@ const Register:React.FC = () => {
 
     return (
         <main className="h-screen flex">
-            <Image src='/register.svg' className='h-screen w-[40%]' height={0} width={0} sizes='100vh' alt='logo' />
+            <Image src='/register.svg' className='h-screen w-[40%] hidden lg:block' height={0} width={0} sizes='100vh' alt='logo' />
 
             <div className="w-full bg-[#DBEEED]">
             <form method="POST" onSubmit={handleSubmit} className='mx-auto w-[60%]'>
