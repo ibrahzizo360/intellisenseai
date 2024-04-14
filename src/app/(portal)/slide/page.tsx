@@ -44,7 +44,7 @@ const SlidePage = () => {
 
     try {
       setLoading(true)
-      const response = await Axios.post('upload', formData, {
+      const response = await Axios.post('v1/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`
@@ -52,7 +52,7 @@ const SlidePage = () => {
       });
       console.log(response.data);
       setLoading(false)
-      setMessages(prevMessages => [...prevMessages, { text: response.data.message[0].text.value, role: 'bot' }]);
+      setMessages(prevMessages => [...prevMessages, { text: response.data, role: 'bot' }]);
       NotificationManager.success('File uploaded successfully', 'Success');
       setFile(acceptedFiles[0]); // Set the uploaded file
     } catch (error:any) {

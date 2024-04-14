@@ -26,8 +26,8 @@ const ChatArea = ({ messages, setMessages }: { messages: Message[], setMessages:
   }, [messages, loading]);
 
   const getAnswer = async (message: string) => {
-    const res = await postWithToken('get_answers', { question: message })
-    return res.answer[0].text.value
+    const res = await postWithToken('v1/get_answers', { question: message })
+    return res
   }
 
   const sendMessage = async () => {
