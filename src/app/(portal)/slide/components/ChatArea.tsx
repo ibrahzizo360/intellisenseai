@@ -6,6 +6,7 @@ import { Message } from '../page'
 import ChatLoader from '@/components/loaders/ChatLoader'
 import { FiSend } from 'react-icons/fi'
 import Image from 'next/image'
+import Latex from 'react-latex-next';
 
 const ChatArea = ({ messages, setMessages }: { messages: Message[], setMessages: React.Dispatch<React.SetStateAction<Message[]>> }) => {
   console.log("messages", messages)
@@ -60,11 +61,7 @@ const ChatArea = ({ messages, setMessages }: { messages: Message[], setMessages:
               {message.role !== 'user' && <Image src="logo-round.svg" height={28} width={28} alt="User" className="w-7 h-7  mx-2" />}
               {/* {message.user === 'user' && <img src="user.png" alt="User" className="w-7 h-7  mx-2" />} */}
               <div className={`max-w-[90%] bg-white p-2 rounded-b-lg  ${message.role === 'user' ? 'rounded-s-lg mr-3 ' : ' rounded-e-lg mt-4'}`}>
-                {message.text.split('\n').map((line: string, index: number) => (
-                  <React.Fragment key={index}>
-                    {line} <br />
-                  </React.Fragment>
-                ))}
+                <Latex>{message.text.replace(/\n/g, '<br />')}</Latex>
               </div>
             </div>
           ))}

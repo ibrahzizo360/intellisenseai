@@ -1,5 +1,6 @@
-import App from '../App'
-import '../globals.css'
+import App from '../App';
+import '../globals.css';
+import 'katex/dist/katex.min.css';
 
 export const metadata = {
   title: 'KNOWTIFAI',
