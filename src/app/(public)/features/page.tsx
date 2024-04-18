@@ -54,8 +54,8 @@ const Features = () => {
             <div className="py-20 px-5 bg-[#dbeeed]">
                 <div className="mx-auto w-4/5 flex justify-between flex-col lg:flex-row gap-12 lg:gap-0">
                     <div className="rounded-md">
-                        <Image src={'/youtube-feat.svg'} height={425} width={507} alt="feature" />
-                        <div className="bg-white w-[507px] p-7 flex flex-col relative">
+                        <Image src={'/youtube-feat.svg'} height={325} width={407} alt="feature" />
+                        <div className="bg-white w-[407px] p-7 flex flex-col relative">
                             <div className="absolute rounded-full py-1 px-5 text-white -top-3 right-16 bg-gradient-to-r from-[#39CA9E] from-5% to-[#EB45DA] to-70%">
                                 Free
                             </div>
@@ -76,8 +76,8 @@ const Features = () => {
                     </div>
 
                     <div className="rounded-md">
-                        <Image src={'/doc-feat.svg'} height={425} width={507} alt="feature" />
-                        <div className="bg-white w-[507px] p-7 flex flex-col relative">
+                        <Image src={'/doc-feat.svg'} height={325} width={407} alt="feature" />
+                        <div className="bg-white w-[407px] p-7 flex flex-col relative">
                             <div className="absolute rounded-full py-1 px-5 text-white -top-3 right-16 bg-gradient-to-r from-[#39CA9E] from-5% to-[#EB45DA] to-70%">
                                 Free
                             </div>
@@ -103,8 +103,8 @@ const Features = () => {
 
                 <div className="mx-auto w-4/5 flex justify-between">
                     <div className="rounded-md">
-                        <Image src={'/learning-feat.svg'} height={425} width={507} alt="feature" />
-                        <div className="bg-white w-[507px] p-7 flex flex-col relative">
+                        <Image src={'/learning-feat.svg'} height={325} width={407} alt="feature" />
+                        <div className="bg-white w-[407px] p-7 flex flex-col relative">
                             <div className="absolute rounded-full py-1 px-5 text-white -top-3 right-16 bg-gradient-to-r from-[#3959CA] from-5% to-[#4AA93A] to-70%">
                                 Premium
                             </div>

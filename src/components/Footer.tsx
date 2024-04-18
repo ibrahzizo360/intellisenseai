@@ -32,11 +32,11 @@ const Footer: React.FC = () => {
                         </div>
 
                         <div className='grid grid-cols-2 gap-5 mt-20 ml-40 gap-x-16'>
-                            <Link href='/'><p>Features</p></Link>
-                            <Link href='/'><p>About</p></Link>
-                            <Link href='/'><p>Blog</p></Link>
-                            <Link href='/'><p>Make donation</p></Link>
-                            <Link href='/'><p>Contact Us</p></Link>
+                            <Link href='/features'><p className='hover:text-purple-300'>Features</p></Link>
+                            <Link href='/about'><p className='hover:text-purple-300'>About</p></Link>
+                            <Link href='/more'><p className='hover:text-purple-300'>Blog</p></Link>
+                            <Link href='/#'><p>Make donation</p></Link>
+                            <Link href='/contact'><p className='hover:text-purple-300'>Contact Us</p></Link>
                             <Link href='/'><p>Powered by Openai</p></Link>
                         </div>
                     </div>
