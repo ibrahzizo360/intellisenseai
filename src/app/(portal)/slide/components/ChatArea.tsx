@@ -8,17 +8,50 @@ import { FiSend } from 'react-icons/fi'
 import Image from 'next/image'
 import Latex from 'react-latex-next';
 
-const ChatArea = ({ messages, setMessages }: { messages: Message[], setMessages: React.Dispatch<React.SetStateAction<Message[]>> }) => {
-  console.log("messages", messages)
+const ChatArea = ({ messages, setMessages,scrollToPage }: { messages: Message[], setMessages: React.Dispatch<React.SetStateAction<Message[]>>, scrollToPage: any }) => {
   const [loading, setLoading] = useState(false);
   const [input, setInput] = useState('');
   const loaderRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  const [lastMessageId, setLastMessageId] = useState<number | null>(null);
+
+
+
+
+  const streamResponse = async (input: string, messageId: number) => {
+    const url = `http://127.0.0.1:8000/v2/get_answers`;
+    const res = await fetch(url,{
+      body: JSON.stringify({ question: input }),
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      } 
+    });
+
+    if (res.body) {
+      var reader = res.body.getReader();
+      var decoder = new TextDecoder('utf-8');
+      reader.read().then(function processResult(result: any): any {
+        if (result.done) return;
+        let token = decoder.decode(result.value);
+        // Update the message with the streamed data based on the message ID
+        setMessages(prevMessages => prevMessages.map((message:any) => {
+          if (message.id === messageId) {
+            return { ...message, text: message.text + token, role: 'bot' };
+          }
+          return message;
+        }));
+        setLoading(false);
+        return reader.read().then(processResult);
+      });
+    }
+  }
+
 
   useEffect(() => {
     // Scroll to the bottom of the chat container when messages change
     if (chatContainerRef.current) {
-      chatContainerRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      chatContainerRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
     if (loaderRef.current) {
@@ -26,25 +59,27 @@ const ChatArea = ({ messages, setMessages }: { messages: Message[], setMessages:
     }
   }, [messages, loading]);
 
-  const getAnswer = async (message: string) => {
-    const res = await postWithToken('v1/get_answers', { question: message })
-    return res
-  }
-
   const sendMessage = async () => {
     setMessages(prevMessages => [...prevMessages, { text: input, role: 'user' }]);
     setLoading(true);
     try {
       setInput('');
-      const response = await getAnswer(input);
-      setMessages(prevMessages => [...prevMessages, { text: response, role: 'bot' }]);
+      const newMessage: any = { id: Date.now(), text: '', role: 'bot' };
+      setLastMessageId(newMessage.id);
+      await streamResponse(input, newMessage.id);
+      setMessages(prevMessages => [...prevMessages, newMessage]);
+      
+      // setMessages(prevMessages => [
+      //   ...prevMessages,
+      //   { text: response.answer, role: 'bot', page: response.page } // Include the page number in the message
+      // ]);
     } catch (error) {
       console.error('Error sending message:', error);
       setMessages(prevMessages => [...prevMessages, { text: 'Sorry, I am unable to process your request at the moment.', role: 'bot' }]);
-    } finally {
       setLoading(false);
     }
   }
+
 
   return (
     <div className='rounded-md w-1/2 border'>
@@ -56,16 +91,25 @@ const ChatArea = ({ messages, setMessages }: { messages: Message[], setMessages:
 
       <div className='lg:h-[96vh] bg-[#dceeed] rounded-md w-full'>
         <div className='h-[85%] overflow-y-auto no-scrollbar'>
-          {messages.map((message, index) => (
-            <div key={index} className={`flex ${message.role === 'user' ? 'justify-end' : ''} my-5 ml-1`} ref={chatContainerRef}>
-              {message.role !== 'user' && <Image src="logo-round.svg" height={28} width={28} alt="User" className="w-7 h-7  mx-2" />}
-              {/* {message.user === 'user' && <img src="user.png" alt="User" className="w-7 h-7  mx-2" />} */}
-              <div className={`max-w-[90%] bg-white p-2 rounded-b-lg  ${message.role === 'user' ? 'rounded-s-lg mr-3 ' : ' rounded-e-lg mt-4'}`}>
-                <Latex>{message.text.replace(/\n/g, '<br />')}</Latex>
-              </div>
+        {messages
+      .filter((message) => message.text.length > 0)
+        .map((message, index) => (
+        <div key={index} className={`flex ${message.role === 'user' ? 'justify-end' : ''} my-5 ml-1`} ref={chatContainerRef}>
+          {message.role !== 'user' && <Image src="logo-round.svg" height={28} width={28} alt="User" className="w-7 h-7  mx-2" />}
+          <div className={`max-w-[90%] bg-white p-2 rounded-b-lg  ${message.role === 'user' ? 'rounded-s-lg mr-3 ' : ' rounded-e-lg mt-4'}`}>
+            <div className="flex items-end"> {/* Flex container for message text and page number */}
+            {message.text && <Latex>{message.text.replace(/\n/g, '<br />')}</Latex>}
+              {/* Display page number if available */}
+              {message.role === 'bot' && message.page && <div className='bg-slate-500 text-white min-w-5 rounded-full 
+              p-0.5 text-xs ml-2 flex items-center justify-center cursor-pointer hover:bg-slate-400'
+              onClick={() => scrollToPage(message.page)}
+              >{message.page}</div>}
             </div>
-          ))}
-          {loading && <ChatLoader ref={loaderRef} />}
+          </div>
+        </div>
+      ))}
+
+        {loading && <ChatLoader ref={loaderRef} />}
         </div>
 
         <div className='h-[15%] p-3'>

@@ -14,13 +14,19 @@ import Image from 'next/image'
 export interface Message {
   text: string;
   role: 'user' | 'bot';
+  page?: number;
 }
 
 const SlidePage = () => {
   const [file, setFile] = useState(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false)
-  console.log(file)
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const handleScrollToPage = useCallback((pageNumber: number) => {
+    console.log('current number', pageNumber)
+    setCurrentPage(pageNumber);
+  }, []);
 
   const {
     getRootProps,
@@ -117,8 +123,8 @@ const SlidePage = () => {
 
       {file && (
         <>
-          <SlideViewer file={file} />
-          <ChatArea messages={messages} setMessages={setMessages} />
+          <SlideViewer file={file} scrollToPage={handleScrollToPage} currentPage={currentPage} />
+          <ChatArea messages={messages} setMessages={setMessages} scrollToPage={handleScrollToPage} />
         </>
       )}
 
