@@ -8,7 +8,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 
 interface SlideViewerProps {
   file: any;
-  scrollToPage: any,
+  scrollToPage?: any,
   currentPage?: any
 }
 
@@ -19,20 +19,20 @@ const SlideViewer: React.FC<SlideViewerProps> = ({file, currentPage }) => {
 
   const documentRef = useRef<any>(null);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setCurrentScroll(documentRef.current?.scrollTop || 0);
-    };
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     setCurrentScroll(documentRef.current?.scrollTop || 0);
+  //   };
 
-    documentRef.current?.container?.addEventListener("scroll", handleScroll);
+  //   documentRef.current?.container?.addEventListener("scroll", handleScroll);
 
-    return () => {
-      documentRef.current?.container?.removeEventListener(
-        "scroll",
-        handleScroll
-      );
-    };
-  }, []);
+  //   return () => {
+  //     documentRef.current?.container?.removeEventListener(
+  //       "scroll",
+  //       handleScroll
+  //     );
+  //   };
+  // }, []);
 
   function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
     setNumPages(numPages);

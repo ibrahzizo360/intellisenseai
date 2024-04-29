@@ -21,12 +21,17 @@ const SlidePage = () => {
   const [file, setFile] = useState(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false)
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState<null | number>(-1);
 
   const handleScrollToPage = useCallback((pageNumber: number) => {
     console.log('current number', pageNumber)
     setCurrentPage(pageNumber);
   }, []);
+
+  // const handleScrollToPage = async (pageNumber: number) => {
+  //   console.log('current number', pageNumber)
+  //   setCurrentPage(pageNumber);
+  // };
 
   const {
     getRootProps,
