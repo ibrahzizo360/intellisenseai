@@ -36,7 +36,7 @@ const Footer: React.FC = () => {
                             <Link href='/about'><p className='hover:text-purple-300'>About</p></Link>
                             <Link href='/more'><p className='hover:text-purple-300'>Blog</p></Link>
                             <Link href='/#'><p>Make donation</p></Link>
-                            <Link href='/contact'><p className='hover:text-purple-300'>Contact Us</p></Link>
+                            <Link href='/message'><p className='hover:text-purple-300'>Contact Us</p></Link>
                             <Link href='/'><p>Powered by Openai</p></Link>
                         </div>
                     </div>
