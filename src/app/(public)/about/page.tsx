@@ -68,7 +68,7 @@ const About = () => {
                 <div className="flex gap-3 items-center justify-center">
                     <div>
                     <p className='font-semibold'>Ibrahim Aziz</p>
-                    <p className='text-gray-600'>Tech Lead/Software engineer</p>
+                    <p className='text-gray-600'>Tech Lead/Software Engineer</p>
                     </div>
 
                     <Image src={'/linkedin.png'} width={35} height={10} alt="linkedin" />
