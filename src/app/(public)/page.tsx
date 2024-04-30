@@ -79,10 +79,10 @@ export default function Home() {
           </div>
 
 
-          <div className="flex flex-col justify-center items-center bg-[url('/ug.svg')] relative
+          <div className="flex flex-col justify-center items-center bg-[url('/ug-1.svg')] relative
            h-[700px] mx-auto w-[90%] text-center bg-cover bg-no-repeat mb-28">
             <div className="p-5 rounded-md absolute top-[50%] left-[50%] transform -translate-x-1/2 -translate-y-1/2">
-              <p className="text-xl font-semibold mt-3">We partner with a diverse range of educational and corporate institutions to deliver customized versions of KnowtifAI, tailored to their specific lecture and educational requirements. Additionally, we offer AI-powered online off-site corporate training programs designed to accelerate professional growth.</p>
+              <p className="text-4xl text-white font-semibold mt-3 leading-snug w-[70vw]">We partner with a diverse range of educational and corporate institutions to deliver customized versions of KnowtifAI, tailored to their specific lecture and educational requirements. Additionally, we offer AI-powered online off-site corporate training programs designed to accelerate professional growth.</p>
             </div>
           </div>
 

@@ -27,8 +27,8 @@ function More() {
         <h2 className='mt-44 uppercase text-3xl text-center'>What are we doing for companies and institutions?</h2>
         <p className={`mx-auto w-[58%] mt-4 ${tinos.className}`}>We&apos;re poised and enthusiastic about customizing our platform to cater specifically to the needs of companies, institutions, and corporate bodies. Whether it&apos;s facilitating online studies, delivering corporate training programs, or addressing other personalized requirements, we&apos;re here to tailor our solutions to your unique needs. With KnowtifAI by your side, embrace seamless learning experiences and empower your workforce with the tools they need to succeed.</p>
 
-        <Link href={'#'}>
-            <div className={`py-3 px-8 text-white rounded-xl bg-[#39CA9E] max-w-fit mx-auto my-8 text-xl ${tinos.className}`}>Reach Out Now</div>
+        <Link href={'/message'}>
+            <div className={`py-3 px-8 text-white rounded-xl bg-[#39CA9E] hover:bg-[#49eb9f] max-w-fit mx-auto my-8 text-xl ${tinos.className}`}>Reach Out Now</div>
         </Link>
 
         <div className="flex mx-auto w-[65%] gap-5 my-36">

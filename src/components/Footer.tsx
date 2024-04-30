@@ -17,7 +17,7 @@ const Footer: React.FC = () => {
                             <Image src={'/whatsapp.png'} height={40} width={40} alt="whatsapp" />
                             <Image src={'/twitter.png'} height={40} width={40} alt="twitter" />
                             <Image src={'/tiktok.png'} height={40} width={40} alt="tiktok" />
-                            <Image src={'/linkedin.png'} height={40} width={40} alt="linkedin" />
+                            <Link href="https://www.linkedin.com/company/knowtifai"><Image src={'/linkedin.png'} height={40} width={40} alt="linkedin" /></Link>
                      
                     </div>
                     </div>

@@ -32,24 +32,26 @@ const About = () => {
         <h2 className='font-bold ml-8 text-3xl mt-7 mb-7'>Meet our dedicated team of innovators</h2>
 
         <div className="flex py-12 px-16 bg-[#e7fefc] rounded-md mb-12 justify-between">
-            <div className="relative">
+            <div className="relative grid place-items-center">
                 <Image src={'/ohene.svg'} width={321} height={350} alt="member-pic" />
 
                 <Image src={'/logo-round-2.svg'} width={28} height={28} alt="logo" className='absolute top-0 left-0 mt-4 ml-7' />
 
                 <div className="grid place-items-center w-full absolute bottom-3">
+                <Link href="https://www.linkedin.com/in/ohene-agyekum/">
                 
-                <div className='bg-white p-3 text-[10px] w-[231px] mx-auto rounded-3xl text-center mt-4 '>
+                <div className='bg-white p-3 text-[10px] w-[231px] mx-auto rounded-3xl text-center mt-4 shadow-2xl cursor-pointer'>
 
-                <div className="flex gap-3 items-center">
+                <div className="flex gap-3 items-center justify-center">
                     <div>
                     <p className='font-semibold'>Ohene-Agyekum Addo-Agyekum</p>
-                    <p className='text-gray-600'>Data Scientist/ML Engineer</p>
+                    <p className='text-gray-600'>Team Lead/Data Scientist</p>
                     </div>
 
-                    <Link href="#"><Image src={'/linkedin.png'} width={35} height={10} alt="linkedin" /></Link>
+                    <Image src={'/linkedin.png'} width={35} height={10} alt="linkedin" />
                 </div>
                 </div>
+                </Link>
                 </div>
             </div>
 
@@ -60,18 +62,19 @@ const About = () => {
                 <Image src={'/logo-round-2.svg'} width={28} height={28} alt="logo" className='absolute top-0 left-0 mt-4 ml-7' />
 
                 <div className="grid place-items-center w-full absolute bottom-3">
-                
-                <div className='bg-white p-3 text-[10px] w-[231px] mx-auto rounded-3xl text-center mt-4 '>
+                <Link href="https://www.linkedin.com/in/ibrah-zizo/">
+                <div className='bg-white p-3 text-[10px] w-[231px] mx-auto rounded-3xl text-center mt-4 shadow-2xl cursor-pointer'>
 
-                <div className="flex gap-3 items-center">
+                <div className="flex gap-3 items-center justify-center">
                     <div>
                     <p className='font-semibold'>Ibrahim Aziz</p>
                     <p className='text-gray-600'>Tech Lead/Software engineer</p>
                     </div>
 
-                    <Link href="#"><Image src={'/linkedin.png'} width={35} height={10} alt="linkedin" /></Link>
+                    <Image src={'/linkedin.png'} width={35} height={10} alt="linkedin" />
                 </div>
                 </div>
+                </Link>
                 </div>
             </div>
 
@@ -81,18 +84,19 @@ const About = () => {
                 <Image src={'/logo-round-2.svg'} width={28} height={28} alt="logo" className='absolute top-0 left-0 mt-4 ml-7' />
 
                 <div className="grid place-items-center w-full absolute bottom-3">
-                
-                <div className='bg-white p-3 text-[10px] w-[231px] mx-auto rounded-3xl text-center mt-4 '>
+                <Link href="https://www.linkedin.com/in/wonder-boakye-yiadom-08a604253/">            
+                <div className='bg-white p-3 text-[10px] w-[231px] mx-auto rounded-3xl text-center mt-4 shadow-2xl cursor-pointer'>
 
-                <div className="flex gap-3 items-center">
+                <div className="flex gap-3 items-center justify-center">
                     <div>
                     <p className='font-semibold'>Wonder Boakye Yiadom</p>
-                    <p className='text-gray-600'>Finance Lead</p>
+                    <p className='text-gray-600'>Business and Sales Lead</p>
                     </div>
 
-                    <Link href="#"><Image src={'/linkedin.png'} width={35} height={10} alt="linkedin" /></Link>
+                    <Image src={'/linkedin.png'} width={35} height={10} alt="linkedin" />
                 </div>
                 </div>
+                </Link>
                 </div>
             </div>
         </div>
