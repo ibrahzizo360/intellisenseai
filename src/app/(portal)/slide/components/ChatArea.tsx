@@ -43,7 +43,7 @@ const ChatArea = ({ messages, setMessages,scrollToPage }: { messages: Message[],
           return message;
         }));
         setLoading(false);
-        // return reader.read().then(processResult);
+        return reader.read().then(processResult);
       });
     }
   }
