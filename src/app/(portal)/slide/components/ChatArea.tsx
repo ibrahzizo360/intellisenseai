@@ -20,7 +20,7 @@ const ChatArea = ({ messages, setMessages,scrollToPage }: { messages: Message[],
 
   const streamResponse = async (input: string, messageId: number) => {
     const base_url = process.env.NEXT_PUBLIC_API_URL; 
-    const url = `${base_url}v2/get_answers`;
+    const url = `${base_url}/v2/get_answers`;
     const res = await fetch(url,{
       body: JSON.stringify({ question: input }),
       method: 'POST',

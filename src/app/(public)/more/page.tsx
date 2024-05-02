@@ -62,6 +62,15 @@ function More() {
             
         </div>
 
+
+        <p className={`underline font-thin text-3xl ${judson.className} text-center uppercase`}>Our Collaborators</p>
+
+        <div className="flex flex-col mx-auto lg:flex-row justify-evenly items-center lg:w-4/5 my-7 mb-20">
+            <Image src={'atf.svg'} alt='atf-logo' height={141} width={151}/>
+            <Image src={'openai.svg'} alt='openai-logo' height={300} width={300}/>
+            <Image src={'nugs.svg'} alt='nugs-logo' height={141} width={151}/>
+        </div>
+
     </main>
   )
 }
