@@ -44,7 +44,7 @@ const Nav = () => {
               <Link href='/features'>
               <h2 className={`text-sm font-semibold cursor-pointer hover:text-green-400 ${path === '/features' ? 'border-b-2' : ''}`}>Features</h2>
               </Link>
-              <IoMdArrowDropdown className='mt-0.5 h-6 w-6 cursor-pointer' onClick={() => setOpenFeatures(true)} />
+              <IoMdArrowDropdown className='mt-0.5 h-6 w-6 cursor-pointer' onClick={() => setOpenFeatures(!openFeatures)} />
               </div>
 
               {
