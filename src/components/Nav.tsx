@@ -52,7 +52,7 @@ const Nav = () => {
                   <div className="absolute bg-white rounded-lg top-12 left-5">
                   <Link href='/video'>
                     <div className="flex items-center gap-4 p-2 cursor-pointer hover:bg-gray-100 rounded-lg">
-                      <Image src={'Youtube.svg'} alt='' height={20} width={20} />
+                      <Image src={'YouTube.svg'} alt='' height={20} width={20} />
                       <p className='text-black text-center'>Video Interaction</p>
                     </div>
                   </Link>
