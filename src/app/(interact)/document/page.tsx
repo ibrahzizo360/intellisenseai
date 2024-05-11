@@ -9,6 +9,7 @@ import { Progress } from "@/components/ui/progress"
 import Loader from '@/components/loaders/Loader'
 import Link from 'next/link'
 import Image from 'next/image'
+import { IoCloudUploadOutline } from 'react-icons/io5'
 
 export interface Message {
   text: string;
@@ -149,7 +150,7 @@ const UploadDocumentPage = () => {
     <main className='h-screen flex w-full'>
       <div className='flex flex-col mx-auto'>
           <div className='flex flex-col items-center w-full'>
-            <Link href={'/'}><Image src='/logo-round.svg' height={90} width={90} alt='logo' className='mb-7 mt-12' /></Link>
+            <Link href={'/'}><Image src='/logo-round.svg' height={90} width={90} alt='logo' className='mb-4 mt-12' /></Link>
 
             <div className="flex justify-center items-center gap-5 mb-8 mt-10">
               <Image src={'/Document.svg'} width={70} height={70} alt="youtube-logo" className="" />
@@ -160,13 +161,14 @@ const UploadDocumentPage = () => {
             <p className={`text-xl w-[587px] text-center text-gray-600`}>Upload a valid pdf to enjoy seamless interactions with books, papers, texts, lecture notes etc.</p>
 
 
-            <label htmlFor="search" className="text-2xl my-6 mt-16 font-light">
+            <label htmlFor="search" className="text-2xl my-6 mt-12 font-light">
               Upload PDF document:
             </label>
 
-            <div {...getRootProps({ style })} className='cursor-pointer'>
+            <div {...getRootProps({ style })} className='cursor-pointer mt-6'>
               <input {...getInputProps()} />
-              <p>Drag &apos;n&apos; drop your document here, or click to select document from your device</p>
+              <IoCloudUploadOutline className='text-2xl mr-5' />
+              <p className='text-sm'>Drag &apos;n&apos; drop your document here, or click to select document from your device</p>
             </div>
           </div>
       </div>

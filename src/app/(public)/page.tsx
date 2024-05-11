@@ -19,22 +19,7 @@ const jura = Jura({
 });
 
 export default function Home() {
-  const [user, setUser] = useState(null);
-  
 
-  useEffect(() => {
-    // const getUser = async () => {
-    //   try{
-    //     const res = await fetchWithToken('me');
-    //     console.log(res)
-    //     setUser(res.username)
-    //   } catch (e) {
-    //     console.log(e)
-    //   }
-    // }
-
-    // getUser()
-  }, []);
 
   
 

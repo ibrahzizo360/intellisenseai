@@ -39,3 +39,7 @@ export const fetchWithToken = async (url: string) => {
         throw error;
     }
 };
+
+export const getUser = () => {
+    return localStorage.getItem('username');
+}

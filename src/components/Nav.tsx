@@ -1,5 +1,5 @@
 'use client'
-import { fetchWithToken } from '@/utils'
+import { fetchWithToken, getUser } from '@/utils'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -8,24 +8,9 @@ import { IoMdArrowDropdown } from 'react-icons/io'
 
 const Nav = () => {
   const path = usePathname();
-  const [user, setUser] = useState(null);
+  const user = getUser();
   const [openFeatures, setOpenFeatures] = useState(false);
-  
 
-  useEffect(() => {
-    const getUser = async () => {
-      try{
-        const res = await fetchWithToken('me');
-        console.log(res)
-        setUser(res.username)
-      } catch (e) {
-        console.log(e)
-      }
-    }
-
-    getUser()
-  }, []);
-  
   return (
     <nav className="justify-between items-center w-full flex bg-[#155552] py-5 px-28 text-white fixed top-0 bg-opacity-90 z-50">
       <Link href='/'>

@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={libre_Franklin.className}>
         <App>
-          <div className="flex items-center">
+          <div className="flex">
             <Sidebar />
             {children}
           </div>
