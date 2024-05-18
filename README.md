@@ -23,7 +23,7 @@
     <a href="https://knowtifai.vercel.app"><strong>Access app »</strong></a>
     <br />
     <br />
-    <a src="KnowtifAIDemo.mp4">Watch Demo Video</a>
+    <a src="KnowtifAI DEMO.mp4">Watch Demo Video</a>
     ·
     <a href="https://knowtifai.vercel.app/message">Report Bug</a>
     ·
