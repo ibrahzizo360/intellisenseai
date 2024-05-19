@@ -6,6 +6,9 @@ import ChatLoader from '@/components/loaders/ChatLoader'
 import { FiSend } from 'react-icons/fi'
 import Image from 'next/image'
 import Latex from 'react-latex-next';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { setMessages } from '@/store/chat-slice'
 
 interface Message {
     id?: '';
@@ -19,8 +22,9 @@ const ChatArea = () => {
   const [input, setInput] = useState('');
   const loaderRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
-  const [messages, setMessages] = useState<Message[]>([]);
+  const messages = useSelector((state: any) => state.session.messages);
   const [lastMessageId, setLastMessageId] = useState<number | null>(null);
+  const dispatch = useDispatch();
 
   const scrollToPage = (pageNumber?: number) => {
     console.log('scrolling to page:', pageNumber);
@@ -44,12 +48,15 @@ const ChatArea = () => {
         if (result.done) return;
         let token = decoder.decode(result.value);
         // Update the message with the streamed data based on the message ID
-        setMessages(prevMessages => prevMessages.map((message:any) => {
-          if (message.id === messageId) {
-            return { ...message, text: message.text + token, role: 'bot' };
-          }
-          return message;
-        }));
+        dispatch(
+          setMessages((prevMessages: any) => prevMessages.map((message:any) => {
+            if (message.id === messageId) {
+              return { ...message, text: message.text + token, role: 'bot' };
+            }
+            return message;
+          }))
+        );
+        
         setLoading(false);
         return reader.read().then(processResult);
       });
@@ -69,14 +76,14 @@ const ChatArea = () => {
   }, [messages, loading]);
 
   const sendMessage = async () => {
-    setMessages(prevMessages => [...prevMessages, { text: input, role: 'user' }]);
+    dispatch(setMessages((prevMessages: any) => [...prevMessages, { text: input, role: 'user' }]));
     setLoading(true);
     try {
       setInput('');
       const newMessage: any = { id: Date.now(), text: '', role: 'bot' };
       setLastMessageId(newMessage.id);
       await streamResponse(input, newMessage.id);
-      setMessages(prevMessages => [...prevMessages, newMessage]);
+      dispatch(setMessages((prevMessages: any) => [...prevMessages, newMessage]));
       
       // setMessages(prevMessages => [
       //   ...prevMessages,
@@ -84,7 +91,7 @@ const ChatArea = () => {
       // ]);
     } catch (error) {
       console.error('Error sending message:', error);
-      setMessages(prevMessages => [...prevMessages, { text: 'Sorry, I am unable to process your request at the moment.', role: 'bot' }]);
+      dispatch(setMessages((prevMessages: any) => [...prevMessages, { text: 'Sorry, I am unable to process your request at the moment.', role: 'bot' }]));
       setLoading(false);
     }
   }
@@ -101,8 +108,8 @@ const ChatArea = () => {
       <div className='lg:h-[96vh] bg-[#dceeed] rounded-md w-full'>
         <div className='h-[85%] overflow-y-auto no-scrollbar'>
         {messages
-      .filter((message) => message.text.length > 0)
-        .map((message, index) => (
+      .filter((message: any) => message.text.length > 0)
+        .map((message :any , index : any) => (
         <div key={index} className={`flex ${message.role === 'user' ? 'justify-end' : ''} my-5 ml-1`} ref={chatContainerRef}>
           {message.role !== 'user' && <Image src="logo-round.svg" height={28} width={28} alt="User" className="w-7 h-7  mx-2" />}
           <div className={`max-w-[90%] bg-white p-2 rounded-b-lg  ${message.role === 'user' ? 'rounded-s-lg mr-3 ' : ' rounded-e-lg mt-4'}`}>

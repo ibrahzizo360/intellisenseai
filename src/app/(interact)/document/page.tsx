@@ -10,6 +10,9 @@ import Loader from '@/components/loaders/Loader'
 import Link from 'next/link'
 import Image from 'next/image'
 import { IoCloudUploadOutline } from 'react-icons/io5'
+import { useDispatch } from 'react-redux'
+import { setMessages } from '@/store/chat-slice'
+import { useRouter } from 'next/navigation'
 
 export interface Message {
   text: string;
@@ -19,9 +22,11 @@ export interface Message {
 
 const UploadDocumentPage = () => {
   const [file, setFile] = useState(null);
-  const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false)
   const [currentPage, setCurrentPage] = useState<null | number>(-1);
+  const [sessionId, setSessionId] = useState<string | null>(null);
+  const dispatch = useDispatch();
+  const router = useRouter();
 
   const handleScrollToPage = useCallback((pageNumber: number) => {
     console.log('current number', pageNumber)
@@ -45,7 +50,7 @@ const UploadDocumentPage = () => {
 
   const streamResponse = async (file: any, messageId: number) => {
     const base_url = process.env.NEXT_PUBLIC_API_URL; 
-    const url = `${base_url}v1/upload`;
+    const url = `${base_url}v2/upload`;
     const formData = new FormData();
     formData.append('file', file);
     
@@ -63,14 +68,23 @@ const UploadDocumentPage = () => {
       var decoder = new TextDecoder('utf-8');
       reader.read().then(function processResult(result: any): any {
         if (result.done) return;
-        let token = decoder.decode(result.value);
-        // Update the message with the streamed data based on the message ID
-        setMessages(prevMessages => prevMessages.map((message:any) => {
-          if (message.id === messageId) {
-            return { ...message, text: message.text + token, role: 'bot' };
-          }
-          return message;
-        }));
+        const decoded = decoder.decode(result.value);
+        const session_id_match = decoded.match(/'session_id':\s*'([^']+)'/);
+        const text_match = decoded.match(/'text':\s*'([^']+)'/);
+        if (session_id_match) {
+          // setSessionId(session_id_match[1]);
+          router.push(`document/${session_id_match[1]}`)
+        }
+        if (text_match) {
+          let token = text_match[1];
+
+          dispatch(setMessages((prevMessages: any) => prevMessages.map((message:any) => {
+            if (message.id === messageId) {
+              return { ...message, text: message.text + token, role: 'bot' };
+            }
+            return message;
+          })));
+        } 
         setFile(file);
         setLoading(false);
         return reader.read().then(processResult);
@@ -78,55 +92,15 @@ const UploadDocumentPage = () => {
     }
   }
 
-  // const uploadFile = useCallback(async (acceptedFiles: any) => {
-  //   const formData = new FormData();
-  //   formData.append('file', acceptedFiles[0]);
-  //   const token = localStorage.getItem('access_token')
-
-  //   try {
-  //     setLoading(true)
-  //     const response = await Axios.post('v1/upload', formData, {
-  //       headers: {
-  //         'Content-Type': 'multipart/form-data',
-  //         Authorization: `Bearer ${token}`
-  //       },
-  //     });
-  //     console.log(response.data);
-  //     setLoading(false)
-  //     setMessages(prevMessages => [...prevMessages, { text: response.data, role: 'bot' }]);
-  //     NotificationManager.success('File uploaded successfully', 'Success');
-  //     setFile(acceptedFiles[0]); // Set the uploaded file
-  //   } catch (error:any) {
-  //     if(error.response.status === 401) {
-  //       NotificationManager.error('Unauthorized access, please login to continue')
-  //       setLoading(false)
-  //       setTimeout(() => {
-  //         window.location.href = '/login'
-  //       }, 3000)  
-        
-  //     } else {
-  //       console.log('Error uploading file:', error);
-  //     NotificationManager.error('Error uploading file. Please try again');
-  //     setLoading(false)
-  //     }
-      
-  //   }
-  // }, []);
-
   const uploadFile = useCallback(async (acceptedFiles: any) => {
     setLoading(true);
     try {
       const newMessage: any = { id: Date.now(), text: '', role: 'bot' };
       await streamResponse(acceptedFiles[0], newMessage.id);
-      setMessages(prevMessages => [...prevMessages, newMessage]);
-      
-      // setMessages(prevMessages => [
-      //   ...prevMessages,
-      //   { text: response.answer, role: 'bot', page: response.page } // Include the page number in the message
-      // ]);
+      dispatch(setMessages((prevMessages :any) => [...prevMessages, newMessage]));
     } catch (error) {
       console.error('Error sending message:', error);
-      setMessages(prevMessages => [...prevMessages, { text: 'Sorry, I am unable to process your request at the moment.', role: 'bot' }]);
+      setMessages((prevMessages: any) => [...prevMessages, { text: 'Sorry, I am unable to process your request at the moment.', role: 'bot' }]);
       setLoading(false);
     }
   }, []);

@@ -2,7 +2,7 @@
 import { fetchWithToken, getUser } from '@/utils'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { BsChatDots } from 'react-icons/bs'
 import { GrAnalytics } from 'react-icons/gr'
 import { IoMdExit } from 'react-icons/io'
@@ -12,6 +12,13 @@ import { MdContentPasteSearch } from 'react-icons/md';
 
 const Sidebar = () => {
   const username = getUser()
+
+  useLayoutEffect(() => {
+    if (!username) {
+      window.location.href = '/login'
+    }
+  }
+  , [username])
 
   const chats = [
     {
@@ -70,18 +77,29 @@ const Sidebar = () => {
         <p className='text-xl'>Settings</p>
        </div>
 
+      {username ? (
+               <div className="mx-10 mt-20 flex-col flex">
+               <div className="flex items-center gap-3 cursor-pointer mx-auto mb-2">
+               <LiaUserCircleSolid className='h-6 w-6' />
+                <p className='text-md'>{username}</p>
+               </div>
+        
+               <div className="flex items-center gap-7 cursor-pointer  bg-white px-3 py-1 rounded-full justify-center">
+                <IoMdExit className='h-5 w-5' />
+                <p className='text-md'>Log Out</p>
+               </div>
+               </div>
+      ) : (<div>
+        <Link href='/login'>
+        <div className="mx-10 mt-20 flex-col flex">
+        <div className="flex items-center gap-3 cursor-pointer mx-auto mb-2">
+        <LiaUserCircleSolid className='h-6 w-6' />
+        <p className='text-md'>Sign In</p>
+        </div>
+        </div>
+        </Link> 
+      </div>) }
 
-       <div className="mx-10 mt-20 flex-col flex">
-       <div className="flex items-center gap-3 cursor-pointer mx-auto mb-2">
-       <LiaUserCircleSolid className='h-6 w-6' />
-        <p className='text-md'>{username}</p>
-       </div>
-
-       <div className="flex items-center gap-7 cursor-pointer  bg-white px-3 py-1 rounded-full justify-center">
-        <IoMdExit className='h-5 w-5' />
-        <p className='text-md'>Log Out</p>
-       </div>
-       </div>
 
     </div>
   )
