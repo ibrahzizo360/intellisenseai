@@ -10,7 +10,7 @@ import { NextIcon, PreviousIcon, RenderSearchProps, searchPlugin } from '@react-
 
 
 
-const DocumentViewer = () => {
+const DocumentViewer = ({file}: {file:string}) => {
   const url = 'https://corsproxy.io/?' + encodeURIComponent('http://www.pdf995.com/samples/pdf.pdf');
   const searchPluginInstance = searchPlugin();
   const { Search } = searchPluginInstance;
@@ -40,7 +40,7 @@ const DocumentViewer = () => {
 >
       
       {/* <Toolbar /> */}
-      <Viewer fileUrl={url} plugins={[toolbarPluginInstance]} />
+      <Viewer fileUrl={file} plugins={[toolbarPluginInstance]} />
       </div>
       </Worker>
     </div>

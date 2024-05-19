@@ -1,5 +1,4 @@
 'use client'
-import { postWithToken } from '@/utils'
 import Link from 'next/link'
 import React, { useEffect, useRef, useState } from 'react'
 import ChatLoader from '@/components/loaders/ChatLoader'
@@ -8,7 +7,8 @@ import Image from 'next/image'
 import Latex from 'react-latex-next';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { setMessages } from '@/store/chat-slice'
+import { setMessages } from '@/store/chat-slice';
+import { store } from '@/store/store'
 
 interface Message {
     id?: '';
@@ -81,10 +81,10 @@ const ChatArea = () => {
     try {
       setInput('');
       const newMessage: any = { id: Date.now(), text: '', role: 'bot' };
-      setLastMessageId(newMessage.id);
+      const currentMessages = store.getState().session.messages;
+      const updatedMessages = [...currentMessages, newMessage];
+      dispatch(setMessages(updatedMessages));
       await streamResponse(input, newMessage.id);
-      dispatch(setMessages((prevMessages: any) => [...prevMessages, newMessage]));
-      
       // setMessages(prevMessages => [
       //   ...prevMessages,
       //   { text: response.answer, role: 'bot', page: response.page } // Include the page number in the message
@@ -111,7 +111,7 @@ const ChatArea = () => {
       .filter((message: any) => message.text.length > 0)
         .map((message :any , index : any) => (
         <div key={index} className={`flex ${message.role === 'user' ? 'justify-end' : ''} my-5 ml-1`} ref={chatContainerRef}>
-          {message.role !== 'user' && <Image src="logo-round.svg" height={28} width={28} alt="User" className="w-7 h-7  mx-2" />}
+          {message.role !== 'user' && <Image src="/logo-round.svg" height={28} width={28} alt="User" className="w-7 h-7  mx-2" />}
           <div className={`max-w-[90%] bg-white p-2 rounded-b-lg  ${message.role === 'user' ? 'rounded-s-lg mr-3 ' : ' rounded-e-lg mt-4'}`}>
             <div className="flex items-end"> {/* Flex container for message text and page number */}
             {message.text && <Latex>{message.text.replace(/\n/g, '<br />')}</Latex>}
