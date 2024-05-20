@@ -17,7 +17,7 @@ interface Message {
     page?: number;
 }
 
-const ChatArea = () => {
+const ChatArea = ({session_id}: {session_id?: string}) => {
   const [loading, setLoading] = useState(false);
   const [input, setInput] = useState('');
   const loaderRef = useRef<HTMLDivElement>(null);
@@ -33,8 +33,10 @@ const ChatArea = () => {
   const streamResponse = async (input: string, messageId: number) => {
     const base_url = process.env.NEXT_PUBLIC_API_URL; 
     const url = `${base_url}v2/get_answers`;
+
+    try {
     const res = await fetch(url,{
-      body: JSON.stringify({ question: input }),
+      body: JSON.stringify({ question: input, session_id: session_id }),
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -66,6 +68,9 @@ const ChatArea = () => {
         return reader.read().then(processResult);
       });
     }
+      } catch (error) {
+        console.log('error', error);
+    }
   }
 
 
@@ -81,7 +86,10 @@ const ChatArea = () => {
   }, [messages, loading]);
 
   const sendMessage = async () => {
-    dispatch(setMessages((prevMessages: any) => [...prevMessages, { text: input, role: 'user' }]));
+    const currentMessages = store.getState().session.messages;
+    if (!input) return;
+    const updatedMessages = [...currentMessages, { text: input, role: 'user' }];
+    dispatch(setMessages(updatedMessages));
     setLoading(true);
     try {
       setInput('');
@@ -99,7 +107,7 @@ const ChatArea = () => {
 
 
   return (
-    <div className='w-full border'>
+    <div className='border flex-1'>
 
       <header className='flex justify-between items-center px-2.5 font-semibold py-1'>
         <p>Tools</p>

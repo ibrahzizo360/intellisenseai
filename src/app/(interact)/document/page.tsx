@@ -132,7 +132,7 @@ const UploadDocumentPage = () => {
   ]);
 
   return (
-    <main className='h-screen flex w-full'>
+    <main className='h-screen flex w-[80vw]'>
       { !file && (
         <div className='flex flex-col mx-auto'>
         <div className='flex flex-col items-center w-full'>

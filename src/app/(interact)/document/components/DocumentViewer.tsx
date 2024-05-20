@@ -29,15 +29,14 @@ const DocumentViewer = ({file}: {file:string}) => {
 
 
   return (
-    <div>
+    <div className='flex-1'>
       <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js">
       <div
-    style={{
-        border: '1px solid rgba(0, 0, 0, 0.3)',
-        height: '720px',
-        width: '570px'
-    }}
->
+      style={{
+          border: '1px solid rgba(0, 0, 0, 0.3)',
+      }}
+      className='h-screen'
+      >
       
       {/* <Toolbar /> */}
       <Viewer fileUrl={file} plugins={[toolbarPluginInstance]} />

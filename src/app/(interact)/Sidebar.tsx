@@ -2,6 +2,7 @@
 import { fetchWithToken, getUser } from '@/utils'
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { BsChatDots } from 'react-icons/bs'
 import { GrAnalytics } from 'react-icons/gr'
@@ -13,6 +14,10 @@ import { MdContentPasteSearch } from 'react-icons/md';
 const Sidebar = () => {
   const username = getUser();
   const [chats, setChats] = useState([]);
+  const path = usePathname();
+  const split = path.split('/');
+  const session_id = split[split.length - 1];
+  const selectedChat = null;
 
   useLayoutEffect(() => {
     if (!username) {
@@ -37,7 +42,7 @@ const Sidebar = () => {
   }
 
   return (
-    <div className='h-screen w-[350px] bg-[#DCEEED]'>
+    <div className='h-screen w-[20vw] bg-[#DCEEED]'>
       <Image src={'/sidebar-logo.svg'} alt='logo' height={39} width={154} className='p-2' />
 
       <Link href='/document'>  
@@ -69,7 +74,7 @@ const Sidebar = () => {
        {
         chats.map((chat: any) => (
           <Link href={`/document/${chat.session_id}`} key={chat.name}>
-          <div className="flex items-center mx-8 gap-4 bg-[#6c71c7] px-3 py-1 rounded-md text-white cursor-pointer" key={chat.name}>
+          <div className={`flex items-center mx-8 my-2 gap-4 ${chat.session_id == session_id ? 'bg-[#6c71c7]': 'bg-slate-400'}  px-3 py-1 rounded-md text-white cursor-pointer`} key={chat.name}>
             <BsChatDots />
             <p>{chat.name}</p>
           </div>

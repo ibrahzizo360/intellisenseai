@@ -31,9 +31,9 @@ const DocumentPage = () => {
   return (
     <>
       {file && (
-        <div className='flex w-full'>
+        <div className='flex w-[80vw]'>
           <DocumentViewer file={file} />
-          <ChatArea />
+          <ChatArea session_id={session_id} />
         </div>
       )}
     </>

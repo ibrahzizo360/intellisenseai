@@ -73,7 +73,7 @@ export default function MediaPage() {
   };
 
   return (
-    <main className="w-screen h-full px-10">
+    <main className="w-[80vw] h-full px-10">
         <form className="flex flex-col items-center" onSubmit={generateTranscript}>
           <Link href={'/'}><Image src='/logo-round.svg' height={90} width={90} alt='logo' className='mb-7 mt-12' /></Link>
 
