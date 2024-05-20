@@ -11,7 +11,7 @@ import { setMessages } from '@/store/chat-slice';
 import { store } from '@/store/store'
 
 interface Message {
-    id?: '';
+    id?: string | number;
     text: string;
     role: 'user' | 'bot';
     page?: number;
@@ -46,16 +46,21 @@ const ChatArea = () => {
       var decoder = new TextDecoder('utf-8');
       reader.read().then(function processResult(result: any): any {
         if (result.done) return;
-        let token = decoder.decode(result.value);
-        // Update the message with the streamed data based on the message ID
-        dispatch(
-          setMessages((prevMessages: any) => prevMessages.map((message:any) => {
+        const decoded = decoder.decode(result.value);
+        const text_match = decoded.match(/'text':\s*'([^']+)'/);
+        const page_match = decoded.match(/'page':\s*'([^']+)'/);
+        if (text_match) {
+          let token = text_match[1];
+          const currentMessages = store.getState().session.messages;
+
+          const updatedMessages = currentMessages.map((message: Message) => {
             if (message.id === messageId) {
-              return { ...message, text: message.text + token, role: 'bot' };
+                return { ...message, text: message.text + token, role: 'bot' };
             }
             return message;
-          }))
-        );
+          });
+          dispatch(setMessages(updatedMessages));
+        } 
         
         setLoading(false);
         return reader.read().then(processResult);
@@ -85,10 +90,6 @@ const ChatArea = () => {
       const updatedMessages = [...currentMessages, newMessage];
       dispatch(setMessages(updatedMessages));
       await streamResponse(input, newMessage.id);
-      // setMessages(prevMessages => [
-      //   ...prevMessages,
-      //   { text: response.answer, role: 'bot', page: response.page } // Include the page number in the message
-      // ]);
     } catch (error) {
       console.error('Error sending message:', error);
       dispatch(setMessages((prevMessages: any) => [...prevMessages, { text: 'Sorry, I am unable to process your request at the moment.', role: 'bot' }]));

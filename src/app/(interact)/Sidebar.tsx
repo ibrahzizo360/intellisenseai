@@ -27,7 +27,7 @@ const Sidebar = () => {
   ]
   return (
     <div className='h-screen w-[350px] bg-[#DCEEED]'>
-      <Image src={'sidebar-logo.svg'} alt='logo' height={39} width={154} className='p-2' />
+      <Image src={'/sidebar-logo.svg'} alt='logo' height={39} width={154} className='p-2' />
 
       <Link href='/document'>  
       <div className='w-4/5 mx-auto mt-4 text-white'>
