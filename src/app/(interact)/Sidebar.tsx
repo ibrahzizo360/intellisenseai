@@ -11,20 +11,31 @@ import { LiaUserCircleSolid } from 'react-icons/lia';
 import { MdContentPasteSearch } from 'react-icons/md';
 
 const Sidebar = () => {
-  const username = getUser()
+  const username = getUser();
+  const [chats, setChats] = useState([]);
 
   useLayoutEffect(() => {
     if (!username) {
       window.location.href = '/login'
     }
+
+    getSessions();
   }
   , [username])
 
-  const chats = [
-    {
-      name: 'Machine Learning'
+  const [loading, setLoading] = useState(false)
+  const getSessions = async () => {
+    setLoading(true)
+    try {
+      const sessions = await fetchWithToken('get_user_sessions')
+      console.log('sessions', sessions)
+      setChats(sessions)
+    } catch (error) {
+      console.log('error', error)
     }
-  ]
+    setLoading(false)
+  }
+
   return (
     <div className='h-screen w-[350px] bg-[#DCEEED]'>
       <Image src={'/sidebar-logo.svg'} alt='logo' height={39} width={154} className='p-2' />
@@ -57,10 +68,12 @@ const Sidebar = () => {
         <div className="h-72 overflow-y-scroll">
        {
         chats.map((chat: any) => (
-          <div className="flex items-center mx-8 gap-4 bg-[#5A5FD1] px-3 py-1 rounded-md text-white cursor-pointer" key={chat.name}>
+          <Link href={`/document/${chat.session_id}`} key={chat.name}>
+          <div className="flex items-center mx-8 gap-4 bg-[#6c71c7] px-3 py-1 rounded-md text-white cursor-pointer" key={chat.name}>
             <BsChatDots />
             <p>{chat.name}</p>
           </div>
+          </Link>
         ))
        }
        </div>
