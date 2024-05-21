@@ -10,7 +10,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { IoCloudUploadOutline } from 'react-icons/io5'
 import { useDispatch, useSelector } from 'react-redux'
-import { setMessages } from '@/store/chat-slice'
+import { setMessages, setNewSession } from '@/store/chat-slice'
 import { useRouter } from 'next/navigation'
 import ChatArea from './components/ChatArea'
 import DocumentViewer from './components/DocumentViewer'
@@ -106,8 +106,9 @@ const UploadDocumentPage = () => {
     setLoading(true);
     try {
       const newMessage: any = { id: Date.now(), text: '', role: 'bot' };
-      const updatedMessages = [...messages, newMessage];
+      const updatedMessages = [newMessage];
       dispatch(setMessages(updatedMessages));
+      dispatch(setNewSession(true));
       await streamResponse(acceptedFiles[0], newMessage.id);
     } catch (error) {
       console.error('Error sending message:', error);

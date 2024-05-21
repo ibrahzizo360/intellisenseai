@@ -4,6 +4,7 @@ const initialState : any = {
     session_id: '',
     name: '',
     messages: [],
+    new: false,
   }
 
 const sessionSlice = createSlice({
@@ -16,9 +17,15 @@ const sessionSlice = createSlice({
             messages: action.payload
         };
     },
+    setNewSession: (state, action) => {
+      return {
+          ...state,
+          new: action.payload
+      };
+  },
     },
   })
 
-export const { setMessages } = sessionSlice.actions;
+export const { setMessages,setNewSession } = sessionSlice.actions;
 
 export default sessionSlice.reducer;

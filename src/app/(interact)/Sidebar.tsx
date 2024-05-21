@@ -10,6 +10,9 @@ import { IoMdExit } from 'react-icons/io'
 import { IoCloudUploadOutline, IoSettingsOutline } from 'react-icons/io5'
 import { LiaUserCircleSolid } from 'react-icons/lia';
 import { MdContentPasteSearch } from 'react-icons/md';
+import { store } from '@/store/store'
+import { useDispatch } from 'react-redux'
+import { setNewSession } from '@/store/chat-slice'
 
 const Sidebar = () => {
   const username = getUser();
@@ -17,7 +20,10 @@ const Sidebar = () => {
   const path = usePathname();
   const split = path.split('/');
   const session_id = split[split.length - 1];
-  const selectedChat = null;
+  const dispatch = useDispatch();
+
+  const toggleNewSession = store.getState().session.new;
+  console.log("new",toggleNewSession)
 
   useLayoutEffect(() => {
     if (!username) {
@@ -26,7 +32,7 @@ const Sidebar = () => {
 
     getSessions();
   }
-  , [username])
+  , [username,toggleNewSession])
 
   const [loading, setLoading] = useState(false)
   const getSessions = async () => {
@@ -39,6 +45,13 @@ const Sidebar = () => {
       console.log('error', error)
     }
     setLoading(false)
+  }
+
+  if(toggleNewSession){
+    setTimeout(() => {
+      getSessions();
+      dispatch(setNewSession(false))
+    }, 200);
   }
 
   return (
@@ -76,7 +89,7 @@ const Sidebar = () => {
           <Link href={`/document/${chat.session_id}`} key={chat.name}>
           <div className={`flex items-center mx-8 my-2 gap-4 ${chat.session_id == session_id ? 'bg-[#6c71c7]': 'bg-slate-400'}  px-3 py-1 rounded-md text-white cursor-pointer`} key={chat.name}>
             <BsChatDots />
-            <p>{chat.name}</p>
+            <p className='text-sm'>{chat.name}</p>
           </div>
           </Link>
         ))
