@@ -9,6 +9,10 @@ import Image from 'next/image';
 import MovieClip from '@/components/Clip';
 import Transcript from '@/components/Transcript';
 import ChatArea from './components/ChatArea';
+import { useDispatch } from 'react-redux';
+import { setMessages, setNewSession } from '@/store/chat-slice'
+import { store } from '@/store/store'
+import { Message } from '../document/page';
 
 export default function MediaPage() {
   const [currentTime, setCurrentTime] = useState(0);
@@ -18,10 +22,20 @@ export default function MediaPage() {
   const [videoLink, setVideoLink] = useState('');
   const [showForm, setShowForm] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [session_id, setSessionId] = useState('');
   const [title, setTitle] = useState('');
   const [trancriptText, setTranscriptText] = useState('');
+  const dispatch = useDispatch();
 
+  const getTranscript = async (url: string) => {
+    try {
+      const response = await Axios.post('/transcript', { video_url: url });
+      const transcript = response.data.transcript;
+      setTranscript(transcript);
+    } catch (error) {
+      console.error('Error fetching transcript:', error);
+    }
+  };
 
   const test = async (e:any) => {
     e.preventDefault();
@@ -41,6 +55,54 @@ export default function MediaPage() {
         const id = getVideoId(videoLink);
         if(id) setVideoId(id);
         
+  }
+
+  const streamResponse = async (messageId: number) => {
+    const base_url = process.env.NEXT_PUBLIC_API_URL; 
+    const url = `${base_url}v2/upload`;
+    
+    const token = localStorage.getItem('access_token')
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        title: title,
+        video_url: videoLink
+      })
+    });
+
+    if (res.body) {
+      var reader = res.body.getReader();
+      var decoder = new TextDecoder('utf-8');
+      reader.read().then(function processResult(result: any): any {
+        if (result.done) return;
+        const decoded = decoder.decode(result.value);
+        const session_id_match = decoded.match(/'session_id':\s*'([^']+)'/);
+        const text_match = decoded.match(/'text':\s*'([^']+)'/);
+
+        if (session_id_match) {
+          setSessionId(session_id_match[1]);
+          window.history.replaceState(null, "", `media/${session_id_match[1]}`)
+        }
+        if (text_match) {
+          let token = text_match[1];
+          const currentMessages = store.getState().session.messages;
+
+          const updatedMessages = currentMessages.map((message: Message) => {
+            if (message.id === messageId) {
+                return { ...message, text: message.text + token, role: 'bot' };
+            }
+            return message;
+          });
+          dispatch(setMessages(updatedMessages));
+        } 
+        setLoading(false);
+        return reader.read().then(processResult);
+      });
+    }
   }
 
   const getVideoId = (url: string) => {
@@ -76,18 +138,11 @@ export default function MediaPage() {
     }
 
     try {
-      const response = await Axios.get(`transcript?video_url=${videoLink}`);
-      if (response.status != 200) {
-        setLoading(false);
-        NotificationManager.error('Failed to fetch transcript data', 'Error', 3000);
-        throw new Error('Failed to fetch transcript data');
-      }
-      const data = await response.data;
-      setTranscript(data.response.words);
-      setTranscriptText(data.response.text);
-      setVideoId(id);
-      setShowForm(false);
-      setLoading(false);
+      const newMessage: any = { id: Date.now(), text: '', role: 'bot' };
+      const updatedMessages = [newMessage];
+      dispatch(setMessages(updatedMessages));
+      dispatch(setNewSession(true));
+      await streamResponse(newMessage.id);
     } catch (error) {
       setLoading(false);
       NotificationManager.error('Failed to fetch transcript data', 'Error', 3000);
@@ -98,8 +153,8 @@ export default function MediaPage() {
   return (
     <main className="w-[80vw] h-full px-5 flex">
 
-      {transcript.length === 0 ? (
-          <form className="flex flex-col items-center w-full" onSubmit={test}>
+      {session_id ? (
+          <form className="flex flex-col items-center w-full" onSubmit={generateTranscript}>
                 <Link href={'/'}><Image src='/logo-round.svg' height={90} width={90} alt='logo' className='mb-7 mt-12' /></Link>
       
                 <div className="flex justify-center items-center gap-5 mb-7">
