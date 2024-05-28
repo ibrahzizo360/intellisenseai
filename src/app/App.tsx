@@ -7,10 +7,6 @@ import ReduxProvider from '@/store/Provider';
 const App = ({children}: Readonly<{
     children: React.ReactNode;
   }>) => {
-
-    // useEffect(() => {
-    //   console.log('App useEffect')
-    // } , [])
   return (
       <ReduxProvider> 
         {children}

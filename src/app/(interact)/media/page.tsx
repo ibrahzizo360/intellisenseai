@@ -2,17 +2,17 @@
 import React, { useState } from 'react';
 import Loader from '@/components/loaders/Loader';
 import { NotificationManager } from 'react-notifications';
-import getYouTubeID from 'get-youtube-id';
 import Link from 'next/link';
 import Axios from '@/utils/axios';
 import Image from 'next/image';
-import MovieClip from '@/components/Clip';
-import Transcript from '@/components/Transcript';
+import MovieClip from '@/components/video/Clip';
+import Transcript from '@/components/video/Transcript';
 import ChatArea from './components/ChatArea';
 import { useDispatch } from 'react-redux';
 import { setMessages, setNewSession } from '@/store/chat-slice'
 import { store } from '@/store/store'
 import { Message } from '../document/page';
+import { getVideoId } from './helpers';
 
 export default function MediaPage() {
   const [currentTime, setCurrentTime] = useState(0);
@@ -22,7 +22,7 @@ export default function MediaPage() {
   const [videoLink, setVideoLink] = useState('');
   const [showForm, setShowForm] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [session_id, setSessionId] = useState('');
+  const [session_id, setSessionId] = useState<null | string>(null);
   const [title, setTitle] = useState('');
   const [trancriptText, setTranscriptText] = useState('');
   const dispatch = useDispatch();
@@ -37,29 +37,9 @@ export default function MediaPage() {
     }
   };
 
-  const test = async (e:any) => {
-    e.preventDefault();
-    setTranscript([
-      {
-        "start": 0,
-        "duration": 3,
-        "text": "Hello"
-        },
-        {
-          "start": 3,
-          "duration": 3,
-          "text": "How are you?"
-          },
-        ]);
-
-        const id = getVideoId(videoLink);
-        if(id) setVideoId(id);
-        
-  }
-
-  const streamResponse = async (messageId: number) => {
+  const streamResponse = async (messageId: number, transcript: any) => {
     const base_url = process.env.NEXT_PUBLIC_API_URL; 
-    const url = `${base_url}v2/upload`;
+    const url = `${base_url}v1/upload_video`;
     
     const token = localStorage.getItem('access_token')
     const res = await fetch(url, {
@@ -70,7 +50,8 @@ export default function MediaPage() {
       },
       body: JSON.stringify({
         title: title,
-        video_url: videoLink
+        video_url: videoLink,
+        transcript: transcript
       })
     });
 
@@ -105,10 +86,6 @@ export default function MediaPage() {
     }
   }
 
-  const getVideoId = (url: string) => {
-    const id = getYouTubeID(url);
-    return id;
-  };
 
   const handleTimeUpdate = (event: any) => {
     setCurrentTime(event.target.getCurrentTime());
@@ -142,7 +119,8 @@ export default function MediaPage() {
       const updatedMessages = [newMessage];
       dispatch(setMessages(updatedMessages));
       dispatch(setNewSession(true));
-      await streamResponse(newMessage.id);
+      await getTranscript(url);
+      await streamResponse(newMessage.id, transcript);
     } catch (error) {
       setLoading(false);
       NotificationManager.error('Failed to fetch transcript data', 'Error', 3000);
@@ -153,7 +131,7 @@ export default function MediaPage() {
   return (
     <main className="w-[80vw] h-full px-5 flex">
 
-      {session_id ? (
+      {!session_id ? (
           <form className="flex flex-col items-center w-full" onSubmit={generateTranscript}>
                 <Link href={'/'}><Image src='/logo-round.svg' height={90} width={90} alt='logo' className='mb-7 mt-12' /></Link>
       

@@ -4,15 +4,16 @@ import { usePathname } from 'next/navigation';
 import { fetchWithToken } from '@/utils';
 import { useDispatch } from 'react-redux';
 import { setMessages } from '@/store/chat-slice';
-import MovieClip from '@/components/Clip';
-import Transcript from '@/components/Transcript';
+import MovieClip from '@/components/video/Clip';
+import Transcript from '@/components/video/Transcript';
 import ChatArea from '../components/ChatArea';
+import { getVideoId } from '../helpers';
 
 const VideoPage = () => {
   const path = usePathname();
   const split = path.split('/');
   const session_id = split[split.length - 1];
-  const [video_url, setVideoUrl] = useState<string | null>(null);
+  const [video_id, setVideoId] = useState<string | null>(null);
   const [transcript, setTranscript] = useState<any>([]);
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [player, setPlayer] = useState<any>(null);
@@ -22,7 +23,8 @@ const VideoPage = () => {
     const fetchSessionDetails = async () => {
       try {
         const session = await fetchWithToken(`get_session/${session_id}`);
-        setVideoUrl(session.video_url);
+        const retrieved_video_id = getVideoId(session.video_url) ;
+        setVideoId(retrieved_video_id);
         dispatch(setMessages(session.chat_history));
         setTranscript(session.transcript); // Assuming the session includes a transcript
       } catch (error) {
@@ -33,8 +35,8 @@ const VideoPage = () => {
     fetchSessionDetails();
   }, [session_id, dispatch]);
 
-  const handleTimeUpdate = (time: number) => {
-    setCurrentTime(time);
+  const handleTimeUpdate = (event: any) => {
+    setCurrentTime(event.target.getCurrentTime());
   };
 
   const handleSeekTo = (timeInSeconds?: number) => {
@@ -45,10 +47,10 @@ const VideoPage = () => {
 
   return (
     <>
-      {video_url && (
+      {video_id && (
         <div className="rounded-md mt-4">
           <MovieClip
-            video_id={video_url}
+            video_id={video_id}
             onTimeUpdate={handleTimeUpdate}
             onSeekTo={handleSeekTo}
             setPlayer={setPlayer}

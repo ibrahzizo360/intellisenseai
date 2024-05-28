@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import ChatLoader from './loaders/ChatLoader';
+import ChatLoader from '../loaders/ChatLoader';
 import axios from 'axios';
 import Axios from '@/utils/axios';
 import { FiSend } from 'react-icons/fi';

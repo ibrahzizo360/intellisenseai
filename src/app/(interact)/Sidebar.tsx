@@ -84,16 +84,24 @@ const Sidebar = () => {
        <h3 className='px-8 text-lg font-medium mb-2'>Interactions history</h3>
 
         <div className="h-72 overflow-y-scroll">
-       {
-        chats.map((chat: any) => (
-          <Link href={`/document/${chat.session_id}`} key={chat.name}>
-          <div className={`flex items-center mx-8 my-2 gap-4 ${chat.session_id == session_id ? 'bg-[#6c71c7]': 'bg-slate-400'}  px-3 py-1 rounded-md text-white cursor-pointer`} key={chat.name}>
-            <BsChatDots />
-            <p className='text-sm'>{chat.name}</p>
-          </div>
+       
+        {chats.map((chat: any) => (
+          <Link
+            href={chat.type === "video" ? `/media/${chat.session_id}` : `/document/${chat.session_id}`}
+            key={chat.name}
+          >
+            <div
+              className={`flex items-center mx-8 my-2 gap-4 ${
+                chat.session_id == session_id ? 'bg-[#6c71c7]' : 'bg-slate-400'
+              } px-3 py-1 rounded-md text-white cursor-pointer`}
+            >
+              <BsChatDots />
+              <p className='text-sm'>{chat.name}</p>
+            </div>
           </Link>
-        ))
-       }
+        ))}
+        
+       
        </div>
 
        <div className='w-full mt-5 mb-5 border-b border-gray-300' />

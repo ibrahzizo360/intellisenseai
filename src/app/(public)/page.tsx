@@ -1,7 +1,7 @@
 'use client'
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import Nav from "@/components/Nav";
+import Footer from "@/components/layout/Footer";
+import Header from "@/components/layout/Header";
+import Nav from "@/components/layout/Nav";
 import { fetchWithToken } from "@/utils";
 import { IBM_Plex_Mono, Jura } from "next/font/google";
 import Image from "next/image";

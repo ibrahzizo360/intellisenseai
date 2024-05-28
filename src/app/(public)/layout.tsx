@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Inter,Libre_Franklin,IBM_Plex_Mono } from "next/font/google";
 import "../globals.css";
 import App from "../App";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import Nav from "@/components/Nav";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import Nav from "@/components/layout/Nav";
 
 const libre_Franklin = Libre_Franklin({ subsets: ["latin"] });
 
