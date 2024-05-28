@@ -1,4 +1,3 @@
-
 import Axios from "./axios";
 
 let token:any = null;
@@ -41,5 +40,7 @@ export const fetchWithToken = async (url: string) => {
 };
 
 export const getUser = () => {
-    return localStorage.getItem('username');
+    if (typeof window !== 'undefined') {
+        return localStorage.getItem('username');
+    }
 }
