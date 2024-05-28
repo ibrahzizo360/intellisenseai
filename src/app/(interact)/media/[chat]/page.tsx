@@ -64,7 +64,7 @@ const VideoPage = () => {
         </div>
       )}
 
-      {transcript && <ChatArea transcript={transcript} />}
+      {transcript && <ChatArea transcript={transcript} session_id={session_id} />}
     </>
   );
 };

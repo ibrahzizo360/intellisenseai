@@ -9,13 +9,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { setMessages } from '@/store/chat-slice';
 import { store } from '@/store/store'
-
-interface Message {
-    id?: string | number;
-    text: string;
-    role: 'user' | 'bot';
-    page?: number;
-}
+import { Message } from '@/types/message'
 
 const ChatArea = ({session_id}: {session_id?: string}) => {
   const [loading, setLoading] = useState(false);
@@ -23,7 +17,6 @@ const ChatArea = ({session_id}: {session_id?: string}) => {
   const loaderRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const messages = useSelector((state: any) => state.session.messages);
-  const [lastMessageId, setLastMessageId] = useState<number | null>(null);
   const dispatch = useDispatch();
 
   const scrollToPage = (pageNumber?: number) => {
@@ -77,7 +70,7 @@ const ChatArea = ({session_id}: {session_id?: string}) => {
   useEffect(() => {
     // Scroll to the bottom of the chat container when messages change
     if (chatContainerRef.current) {
-      chatContainerRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      chatContainerRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
 
     if (loaderRef.current) {
