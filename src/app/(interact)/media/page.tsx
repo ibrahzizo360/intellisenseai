@@ -108,11 +108,13 @@ export default function MediaPage() {
     if (!url) return;
 
     const id = getVideoId(url);
-    setVideoId(id);
+  
     if (!id) {
       setLoading(false);
       console.error('Invalid YouTube video URL');
       return;
+    } else{
+      setVideoId(id);
     }
 
     try {
