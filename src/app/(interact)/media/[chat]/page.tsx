@@ -57,7 +57,7 @@ const VideoPage = () => {
           />
           <Transcript transcript={transcript} currentTime={currentTime} player={player} />
 
-          <div className="flex justify-between items-center mt-2">
+          <div className="flex justify-between items-center mt-2 ml-2">
             <button className="rounded-md px-2 py-1 text-xs text-white bg-[#A43697]">Keep original language</button>
             <button className="rounded-md px-2 py-1 text-xs text-white bg-[#A43697]">Change transcript language</button>
           </div>

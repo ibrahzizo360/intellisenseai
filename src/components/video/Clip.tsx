@@ -60,6 +60,7 @@ const MovieClip: React.FC<MovieClipProps> = ({
       onStateChange={handleStateChange}
       id="video"
       iframeClassName="rounded-md"
+      className="ml-2"
     />
   );
 };

@@ -183,7 +183,7 @@ export default function MediaPage() {
               </form>
       ): (
         <>
-        <div className="rounded-md mt-4">
+        <div className="rounded-md mt-4 ml-2">
             <MovieClip
               video_id={videoId}
               onTimeUpdate={handleTimeUpdate}
