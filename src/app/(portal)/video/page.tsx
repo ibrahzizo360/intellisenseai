@@ -1,11 +1,11 @@
 'use client';
 import React, { useState } from 'react';
-import ChatArea from '@/components/ChatArea';
+import ChatArea from '@/components/video/ChatArea';
 import Loader from '@/components/loaders/Loader';
 import { NotificationManager } from 'react-notifications';
 import getYouTubeID from 'get-youtube-id';
-import MovieClip from '@/components/Clip';
-import Transcript from '@/components/Transcript';
+import MovieClip from '@/components/video/Clip';
+import Transcript from '@/components/video/Transcript';
 import Link from 'next/link';
 import Axios from '@/utils/axios';
 import Image from 'next/image';

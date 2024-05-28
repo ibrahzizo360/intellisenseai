@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { Inter,Libre_Franklin,IBM_Plex_Mono } from "next/font/google";
 import "../globals.css";
-import App from "../App";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
-import Nav from "@/components/layout/Nav";
+import App from "@/app/App";
+import Sidebar from "./Sidebar";
 
 const libre_Franklin = Libre_Franklin({ subsets: ["latin"] });
 
@@ -23,9 +21,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={libre_Franklin.className}>
         <App>
-          <Nav />  
-          {children}
-          <Footer />
+          <div className="flex">
+            <Sidebar />
+            {children}
+          </div>
         </App>
       </body>
     </html>

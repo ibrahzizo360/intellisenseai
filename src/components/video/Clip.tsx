@@ -20,8 +20,8 @@ const MovieClip: React.FC<MovieClipProps> = ({
 
 
   const options: Options = {
-    height: '335',
-    width: '640',
+    height: '400',
+    width: '580',
     playerVars: {
       autoplay: 1,
       controls: 1,
@@ -59,7 +59,8 @@ const MovieClip: React.FC<MovieClipProps> = ({
       onReady={handleReady}
       onStateChange={handleStateChange}
       id="video"
-      className="rounded-md"
+      iframeClassName="rounded-md"
+      className="ml-2"
     />
   );
 };

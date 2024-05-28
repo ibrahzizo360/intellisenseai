@@ -11,7 +11,7 @@ const ChatLoader = React.forwardRef<HTMLDivElement>(({}, ref) => {
     // </div>
 
     <div className='ml-4' ref={ref}>
-      <Image src="logo-round.svg" height={38} width={38} alt="User" className=" animate-spin" />
+      <Image src="/logo-round.svg" height={38} width={38} alt="User" className="animate-spin" />
     </div> 
   );
 });

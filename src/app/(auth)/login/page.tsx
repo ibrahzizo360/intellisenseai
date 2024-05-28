@@ -26,8 +26,9 @@ const Login: React.FC = () => {
                 password,
             });
             localStorage.setItem('access_token', res.data.access_token);
+            localStorage.setItem('username', res.data.username);
             NotificationManager.success('Successfully logged in');
-            window.location.href = '/';
+            window.location.href = '/document';
         } catch (e: any) {
             if (e.response.status === 401) {
                 NotificationManager.error(e.response.data.detail);
