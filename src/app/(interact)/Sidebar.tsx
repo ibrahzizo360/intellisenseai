@@ -15,26 +15,29 @@ import { useDispatch } from 'react-redux'
 import { setNewSession } from '@/store/chat-slice'
 
 const Sidebar = () => {
-  const username = getUser();
   const [chats, setChats] = useState([]);
   const path = usePathname();
   const split = path.split('/');
   const session_id = split[split.length - 1];
   const dispatch = useDispatch();
+  const [username, setUsername] = useState<string | null>(null);
 
   const toggleNewSession = store.getState().session.new;
-  console.log("new",toggleNewSession)
 
   useLayoutEffect(() => {
+    const username = getUser();
     if (!username) {
       window.location.href = '/login'
+    } else {
+      setUsername(username)
     }
 
     getSessions();
   }
   , [username,toggleNewSession])
 
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+  
   const getSessions = async () => {
     setLoading(true)
     try {
@@ -85,7 +88,7 @@ const Sidebar = () => {
 
         <div className="h-72 overflow-y-scroll">
        
-        {chats.map((chat: any) => (
+        {chats.length  > 0 &&  chats.map((chat: any) => (
           <Link
             href={chat.type === "video" ? `/media/${chat.session_id}` : `/document/${chat.session_id}`}
             key={chat.name}
