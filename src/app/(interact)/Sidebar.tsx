@@ -59,7 +59,7 @@ const Sidebar = () => {
 
   return (
     <div className='h-screen w-[20vw] bg-[#DCEEED]'>
-      <Image src={'/sidebar-logo.svg'} alt='logo' height={39} width={154} className='p-2' />
+      <Link href={"/"}><Image src={'/sidebar-logo.svg'} alt='logo' height={39} width={154} className='p-2' /></Link>
 
       <Link href='/document'>  
       <div className='w-4/5 mx-auto mt-4 text-white'>
@@ -125,12 +125,15 @@ const Sidebar = () => {
                <LiaUserCircleSolid className='h-6 w-6' />
                 <p className='text-md'>{username}</p>
                </div>
-        
-               <div className="flex items-center gap-7 cursor-pointer  bg-white px-3 py-1 rounded-full justify-center">
+
+              <Link href={'/login'}>
+              <div className="flex items-center gap-7 cursor-pointer  bg-white px-3 py-1 rounded-full justify-center">
                 <IoMdExit className='h-5 w-5' />
                 <p className='text-md'>Log Out</p>
                </div>
+               </Link>
                </div>
+               
       ) : (<div>
         <Link href='/login'>
         <div className="mx-10 mt-20 flex-col flex">

@@ -58,7 +58,7 @@ const Nav = () => {
             <Link href='/more'><h2 className={`text-sm font-semibold cursor-pointer hover:text-green-400 ${path === '/more' ? 'border-b-2' : ''}`}>Blog</h2></Link>
             <Link href='/about'><h2 className={`text-sm font-semibold cursor-pointer hover:text-green-400 ${path === '/about' ? 'border-b-2' : ''}`}>About</h2></Link>
             {!user && <Link href='/login'><h2 className={`text-sm font-semibold cursor-pointer hover:text-green-400 ${path === '/login' ? 'underline' : ''}`}>Sign In</h2></Link>}
-            {!user ? <Link href='/register'><button className="bg-[#53DB13] px-6 py-3 rounded-md bg-opacity-75 hover:bg-[#84d160]">Get Started</button></Link> : <Link href='/register'><button className="bg-[#53DB13] px-6 py-3 rounded-md bg-opacity-75 hover:bg-[#84d160]">Logout</button></Link>   }    
+            {!user ? <Link href='/register'><button className="bg-[#53DB13] px-6 py-3 rounded-md bg-opacity-75 hover:bg-[#84d160]">Get Started</button></Link> : <Link href='/login'><button className="bg-[#53DB13] px-6 py-3 rounded-md bg-opacity-75 hover:bg-[#84d160]">Logout</button></Link>   }    
         </div>
     </nav>
   )
