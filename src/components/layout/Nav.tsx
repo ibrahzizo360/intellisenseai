@@ -35,14 +35,14 @@ const Nav = () => {
               {
                 openFeatures && (
                   <div className="absolute bg-white rounded-lg top-12 left-5">
-                  <Link href='/video'>
+                  <Link href='/media'>
                     <div className="flex items-center gap-4 p-2 cursor-pointer hover:bg-gray-100 rounded-lg">
                       <Image src={'YouTube.svg'} alt='' height={20} width={20} />
                       <p className='text-black text-center'>Video Interaction</p>
                     </div>
                   </Link>
                     <hr />
-                  <Link href='/slide'>
+                  <Link href='/document'>
                     <div className="flex items-center gap-4 p-2 cursor-pointer hover:bg-gray-200">
                       <Image src={'Document.svg'} alt='' height={20} width={20} />
                       <p className='text-black'>Document Interaction</p>

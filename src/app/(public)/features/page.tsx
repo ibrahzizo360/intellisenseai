@@ -70,7 +70,7 @@ const Features = () => {
                             </div>
 
                             <div className='flex items-center justify-center py-3 border border-red-600 rounded-full w-2/3 text-red-600 cursor-pointer mx-auto hover:bg-red-600 hover:text-white mt-9'>
-                                <Link href={'/video'}><p className='font-bold '>Use this feature</p></Link>
+                                <Link href={'/media'}><p className='font-bold '>Use this feature</p></Link>
                             </div>
                         </div>
                     </div>
@@ -92,7 +92,7 @@ const Features = () => {
                             </div>
 
                             <div className='flex items-center justify-center py-3 border border-red-600 rounded-full w-2/3 text-red-600 cursor-pointer mx-auto hover:bg-red-600 hover:text-white mt-3'>
-                                <Link href={'/slide'}><p className='font-bold '>Use this feature</p></Link>
+                                <Link href={'/document'}><p className='font-bold '>Use this feature</p></Link>
                             </div>
                         </div>
                     </div>
